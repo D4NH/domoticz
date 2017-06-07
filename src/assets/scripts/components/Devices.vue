@@ -2,10 +2,10 @@
     <div>
         <p v-if="devices">
             <ul>
-                <li v-for="device in devices" @click="toggleSwitch(device.idx)">
+                <li v-for="device in devices" v-if="device.SwitchType == 'On/Off'" @click="toggleSwitch(device.idx)">
                     {{ device.Name }}
                     {{ device.Status }}
-                    {{ device.LastUpdate }}
+                    {{ device.LastUpdate | moment }}
                 </li>
             </ul>
         </p>
@@ -20,6 +20,8 @@ import Vue from 'vue';
 import axios from 'axios';
 import VueAxios from 'vue-axios';
 
+import moment from 'moment';
+
 Vue.use(VueAxios, axios)
 
 const hostURL = 'http://192.168.0.101:8080/';
@@ -33,7 +35,15 @@ export default {
             errorMsg: ''
         }
     },
+    filters: {
+        moment (date) {
+            return moment(date).fromNow();
+        }
+    },
     methods : {
+        moment () {
+            return moment();
+        },
         refreshData () {
             Vue.axios.get(devicesAPI).then(response => {
                 this.devices = response.data.result;
@@ -55,11 +65,10 @@ export default {
     },
     created () {
         this.refreshData();
-    },
+    }
 }
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-
 </style>
