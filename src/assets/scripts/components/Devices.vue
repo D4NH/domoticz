@@ -2,10 +2,29 @@
     <div>
         <p v-if="devices">
             <ul>
-                <li v-for="device in devices" v-if="device.SwitchType == 'On/Off'" @click="toggleSwitch(device.idx)">
+                <li v-for="device in devices" v-if="device.TypeImg === 'lightbulb' && device.Image === 'Light' " @click="toggleSwitch(device.idx)">
                     {{ device.Name }}
                     {{ device.Status }}
-                    {{ device.LastUpdate | moment }}
+                    <br/>
+                    <small>{{ device.LastUpdate | moment }}</small>
+                </li>
+            </ul>
+
+            <ul>
+                <li v-for="device in devices" v-if="device.Image === 'Phone'" @click="toggleSwitch(device.idx)">
+                    {{ device.Name }}
+                    {{ device.Status }}
+                    <br/>
+                    <small>{{ device.LastUpdate | moment }}</small>
+                </li>
+            </ul>
+
+            <ul>
+                <li v-for="device in devices" v-if="device.TypeImg === 'doorbell'" @click="toggleSwitch(device.idx)">
+                    {{ device.Name }}
+                    {{ device.Status }}
+                    <br/>
+                    <small>{{ device.LastUpdate | moment }}</small>
                 </li>
             </ul>
         </p>
