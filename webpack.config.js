@@ -1,16 +1,18 @@
-const copyFiles = require('copy-webpack-plugin');
 const path = require('path');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const FriendlyErrorsPlugin = require('friendly-errors-webpack-plugin');
 const webpack = require('webpack');
-
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 const PROD = (process.env.NODE_ENV === 'production');
 
 module.exports = {
     context: path.join(__dirname, 'src'),
 
+    devtool: '#cheap-module-eval-source-map',
+
     entry: {
-        'domoticz': './assets/scripts/index.js',
+        'domoticz': './assets/scripts/main.js',
         'vendor': ['vue', 'lodash']
     },
 
@@ -23,44 +25,55 @@ module.exports = {
     module: {
         rules: [{
             test: /\.vue$/,
-            loader: 'vue-loader',
+            loader: 'vue-loader'
+        }, {
+            test: /\.js$/,
+            loader: 'babel-loader',
+            exclude: /(node_modules)/
+        }, {
+            test: /\.(png|jpe?g|gif|svg)(\?.*)?$/,
+            loader: 'url-loader',
             options: {
+                limit: 10000
             }
         }, {
-            test: /\.scss$/,
-            use: [
-                { loader: 'style-loader' }, {
-                    loader: 'css-loader',
-                    options: {
-                        sourceMap: true
-                    }
-                }, {
-                    loader: 'sass-loader',
-                    options: {
-                        sourceMap: true
-                    }
-                }
-            ]
+            test: /\.(woff2?|eot|ttf|otf)(\?.*)?$/,
+            loader: 'url-loader',
+            options: {
+                limit: 10000
+            }
         }]
     },
 
     plugins: [
         new webpack.optimize.CommonsChunkPlugin({ name: 'vendor' }),
-        new copyFiles([
-            { from: './index.html', to: path.resolve(__dirname, 'dist') },
-        ]),
+        new webpack.NoEmitOnErrorsPlugin(),
         new webpack.DefinePlugin({
             'process.env': { NODE_ENV: JSON.stringify(process.env.NODE_ENV || 'development') }
         }),
-        new webpack.NamedModulesPlugin()
+        new webpack.NamedModulesPlugin(),
+        new FriendlyErrorsPlugin(),
+        new HtmlWebpackPlugin({
+            filename: 'index.html',
+            template: 'index.html',
+            inject: true
+        }),
     ],
 
     resolve: {
-        extensions: ['', '.js', '.vue'],
-        fallback: [path.join(__dirname, '../node_modules')],
+        extensions: ['.js', '.vue']
     },
 
     devServer: {
+        stats: {
+            hash: false,
+            assets: false,
+            timings: false,
+            chunks: false,
+            chunkModules: false,
+            modules: false,
+            children: false
+        },
         contentBase: path.resolve(__dirname, 'dist')
     }
 };
