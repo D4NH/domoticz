@@ -1,17 +1,17 @@
 <template>
   <div id="app">
     <!-- components go here -->
-    <light-switch></light-switch>
+    <devices></devices>
   </div>
 </template>
 
 <script>
-import LightSwitch from './components/LightSwitch';
+import Devices from './components/Devices';
 
 export default {
   components: {
     // components go here
-    LightSwitch
+    Devices
   }
 }
 </script>
