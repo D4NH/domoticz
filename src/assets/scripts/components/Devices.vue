@@ -30,7 +30,6 @@
     <div v-else>
         <p>error: {{ errorMsg }}</p>
     </div>
-    </div>
 </template>
 
 <script>
@@ -46,7 +45,7 @@ const hostURL = 'http://192.168.0.101:8080/';
 const devicesAPI = hostURL + 'json.htm?type=devices&filter=light&used=true&order=Name';
 
 export default {
-    name: 'light-switch',
+    name: 'devices',
     data () {
         return {
             devices: [],

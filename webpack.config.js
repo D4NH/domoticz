@@ -28,7 +28,7 @@ module.exports = {
             options: {
                 loaders: {
                     use: [{
-                        loader: 'style-loader'
+                        loader: 'vue-style-loader'
                     }, {
                         loader: 'css-loader',
                         options: {
