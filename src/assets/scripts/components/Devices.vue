@@ -1,36 +1,35 @@
 <template>
-    <div>
-        <p v-if="devices">
-            <ul>
-                <li class="light-switches" v-for="device in devices" v-if="device.TypeImg === 'lightbulb' && device.Image === 'Light' " @click="toggleSwitch(device.idx)">
-                    {{ device.Name }}
-                    {{ device.Status }}
-                    <br/>
-                    <small class="light-switches__blaat">{{ device.LastUpdate | moment }}</small>
-                </li>
-            </ul>
+    <div v-if="devices" class="devices">
+        <ul>
+            <li class="light-switches" v-for="device in devices" v-if="device.TypeImg === 'lightbulb' && device.Image === 'Light' " @click="toggleSwitch(device.idx)">
+                {{ device.Name }}
+                {{ device.Status }}
+                <br/>
+                <small class="light-switches__blaat">{{ device.LastUpdate | moment }}</small>
+            </li>
+        </ul>
 
-            <ul>
-                <li v-for="device in devices" v-if="device.Image === 'Phone'">
-                    {{ device.Name }}
-                    {{ device.Status }}
-                    <br/>
-                    <small>{{ device.LastUpdate | moment }}</small>
-                </li>
-            </ul>
+        <ul>
+            <li v-for="device in devices" v-if="device.Image === 'Phone'">
+                {{ device.Name }}
+                {{ device.Status }}
+                <br/>
+                <small>{{ device.LastUpdate | moment }}</small>
+            </li>
+        </ul>
 
-            <ul>
-                <li v-for="device in devices" v-if="device.TypeImg === 'doorbell' || device.TypeImg === 'door'" @click="toggleSwitch(device.idx)">
-                    {{ device.Name }}
-                    {{ device.Status }}
-                    <br/>
-                    <small>{{ device.LastUpdate | moment }}</small>
-                </li>
-            </ul>
-        </p>
-        <p v-else>
-            error: {{ errorMsg }}
-        </p>
+        <ul>
+            <li v-for="device in devices" v-if="device.TypeImg === 'doorbell' || device.TypeImg === 'door'" @click="toggleSwitch(device.idx)">
+                {{ device.Name }}
+                {{ device.Status }}
+                <br/>
+                <small>{{ device.LastUpdate | moment }}</small>
+            </li>
+        </ul>
+    </div>
+    <div v-else>
+        <p>error: {{ errorMsg }}</p>
+    </div>
     </div>
 </template>
 
@@ -90,6 +89,9 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style lang="scss" scoped>
+    .devices {
+        display: inline-block;
+    }
     .light-switches {
         cursor: pointer;
     }

@@ -1,5 +1,4 @@
 const path = require('path');
-const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const FriendlyErrorsPlugin = require('friendly-errors-webpack-plugin');
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
@@ -25,7 +24,24 @@ module.exports = {
     module: {
         rules: [{
             test: /\.vue$/,
-            loader: 'vue-loader'
+            loader: 'vue-loader',
+            options: {
+                loaders: {
+                    use: [{
+                        loader: 'style-loader'
+                    }, {
+                        loader: 'css-loader',
+                        options: {
+                            sourceMap: true
+                        }
+                    }, {
+                        loader: 'sass-loader',
+                        options: {
+                            sourceMap: true
+                        }
+                    }]
+                }
+            }
         }, {
             test: /\.js$/,
             loader: 'babel-loader',
@@ -54,7 +70,7 @@ module.exports = {
         new webpack.NamedModulesPlugin(),
         new FriendlyErrorsPlugin(),
         new HtmlWebpackPlugin({
-            filename: 'index.html',
+            title: 'Domoticz',
             template: 'index.html',
             inject: true
         }),
