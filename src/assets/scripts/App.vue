@@ -1,7 +1,7 @@
 <template>
     <div class="wrapper">
         <div class="header">
-            <p class="header__small">header</p>
+            <p>Welcome home</p>
         </div>
 
         <div class="content">
