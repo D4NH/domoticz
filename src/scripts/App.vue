@@ -37,7 +37,6 @@
             </div>
         </div>
 
-
         <div class="footer">
             <small>© 2017 Copyright Danh Nguyen | Front-End Developer</small>
         </div>
