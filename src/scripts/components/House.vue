@@ -1,10 +1,20 @@
 <template>
     <div v-if="devices" class="devices">
         <ul>
-            <li class="switches" v-for="device in devices" v-if="device.Image === 'Phone'">
-                <i class="fa fa-fw fa-mobile fa-2x" :class="{'mobile-on' : device.Status === 'On'}" aria-hidden="true"></i>
-                {{ device.Name }}<br/>
+            <li class="switches" v-for="device in devices" v-if="device.idx === '38' || device.idx === '31'">
+                <i class="fa fa-fw fa-home fa-2x" :class="{'home-on' : device.Status === 'Open'}" aria-hidden="true"></i>
+                {{ device.Name }} {{ device.Status }} <br/>
                 <small>Last updated: {{ device.LastUpdate | moment }}</small>
+            </li>
+        </ul>
+
+        <ul>
+            <li class="switches">
+                <i class="fa fa-fw fa-video-camera fa-2x" aria-hidden="true"></i>
+                Camera<br/>
+                <small>HIKVision</small>
+                <br/><br/>
+                <ip-cam>Loading...</ip-cam>
             </li>
         </ul>
     </div>
@@ -16,6 +26,9 @@
 <script>
 import moment from 'moment';
 import Vue from 'vue';
+
+import IpCam from './IpCam';
+Vue.component('ip-cam', IpCam);
 
 import { getDevicesAPI } from '../services/domoticz-api';
 
@@ -76,7 +89,7 @@ export default {
             margin-top: 5px;
         }
     }
-    .mobile-on {
-        color: #01848F;
+    .home-on {
+        color: #F44336;
     }
 </style>

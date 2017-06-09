@@ -36,14 +36,18 @@ export default {
 <style lang="scss" scoped>
     .box {
         position: relative;
-        height: 300px;
+        @media only screen and (max-width: 500px) {
+            height: 300px;
+        }
         overflow: hidden;
         margin-top: -10px;
     }
 
     img {
         width: 100%;
-        position: absolute;
-        bottom: -25px;
+        @media only screen and (max-width: 500px) {
+            position: absolute;
+            bottom: -25px;
+        }
     }
 </style>

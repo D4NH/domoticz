@@ -1,8 +1,8 @@
 <template>
     <div v-if="devices" class="devices">
         <ul>
-            <li class="switches" v-for="device in devices" v-if="device.Image === 'Phone'">
-                <i class="fa fa-fw fa-mobile fa-2x" :class="{'mobile-on' : device.Status === 'On'}" aria-hidden="true"></i>
+            <li class="switches" v-for="device in devices">
+                <i class="fa fa-fw fa-sticky-note fa-2x" aria-hidden="true"></i>
                 {{ device.Name }}<br/>
                 <small>Last updated: {{ device.LastUpdate | moment }}</small>
             </li>
@@ -17,7 +17,7 @@
 import moment from 'moment';
 import Vue from 'vue';
 
-import { getDevicesAPI } from '../services/domoticz-api';
+import { getAllDevicesAPI } from '../services/domoticz-api';
 
 export default {
     name: 'devices',
@@ -37,7 +37,7 @@ export default {
             return moment();
         },
         getDevices () {
-            getDevicesAPI ().then((response) => {
+            getAllDevicesAPI ().then((response) => {
                 this.devices = response.data.result.sort();
             }).catch(error => {
                 this.errorMsg = 'Alles is kapot!';
@@ -76,7 +76,13 @@ export default {
             margin-top: 5px;
         }
     }
+    .light-on {
+        color: #FCD837;
+    }
     .mobile-on {
         color: #01848F;
+    }
+    .home-on {
+        color: #F44336;
     }
 </style>
