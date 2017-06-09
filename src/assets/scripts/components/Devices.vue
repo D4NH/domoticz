@@ -18,6 +18,10 @@
 
         <ul>
             <li class="switches">
+                <i class="fa fa-fw fa-video-camera fa-2x" aria-hidden="true"></i>
+                Camera<br/>
+                <small>HIKVision</small>
+                <br/><br/>
                 <img id="hikvision" src="http://192.168.0.102:8010/streaming/channels/1/picture" />
             </li>
         </ul>
