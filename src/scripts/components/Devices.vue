@@ -11,7 +11,7 @@
         <ul>
             <li class="switches" v-for="device in devices" v-if="device.Image === 'Phone'">
                 <i class="fa fa-fw fa-mobile fa-2x" :class="{'mobile-on' : device.Status === 'On'}" aria-hidden="true"></i>
-                {{ device.Name }} {{ device.Status }}<br/>
+                {{ device.Name }}<br/>
                 <small>{{ device.LastUpdate | moment }}</small>
             </li>
         </ul>
@@ -22,7 +22,7 @@
                 Camera<br/>
                 <small>HIKVision</small>
                 <br/><br/>
-                <img id="hikvision" src="http://192.168.0.102:8010/streaming/channels/1/picture" />
+                <ip-cam>Loading...</ip-cam>
             </li>
         </ul>
 
@@ -40,16 +40,13 @@
 </template>
 
 <script>
-import Vue from 'vue';
-import axios from 'axios';
-import VueAxios from 'vue-axios';
-
 import moment from 'moment';
+import Vue from 'vue';
 
-Vue.use(VueAxios, axios)
+import IpCam from './IpCam';
+Vue.component('ip-cam', IpCam);
 
-const hostURL = 'http://192.168.0.101:8080/';
-const devicesAPI = hostURL + 'json.htm?type=devices&filter=light&used=true&order=Name';
+import { getDevicesAPI, getToggleAPI } from '../services/domoticz-api';
 
 export default {
     name: 'devices',
@@ -68,36 +65,25 @@ export default {
         moment () {
             return moment();
         },
-        refreshData () {
-            Vue.axios.get(devicesAPI).then(response => {
-                this.devices = response.data.result;
+        getDevices () {
+            getDevicesAPI ().then((response) => {
+                this.devices = response.data.result.sort();
             }).catch(error => {
                 this.errorMsg = 'Alles is kapot!';
                 this.devices = [];
             });
         },
-        toggleSwitch (switchId) {
-            const toggleSwitchApi = hostURL + `json.htm?type=command&param=switchlight&idx=${switchId}&switchcmd=Toggle`
-
-            Vue.axios.get(toggleSwitchApi).then(response => {
-                this.refreshData();
+        toggleSwitch (deviceId) {
+            getToggleAPI (deviceId).then((response) => {
+                this.getDevices();
             }).catch(error => {
                 this.errorMsg = 'Alles is kapot!';
                 this.devices = [];
             });
-        },
-        reloadCamStream () {
-            setInterval(function() {
-                console.log('reloading');
-                document.getElementById('hikvision').src = 'http://192.168.0.102:8010/streaming/channels/1/picture?rand=' + Math.random();
-            }, 1000);
         }
     },
-    created () {
-        this.refreshData();
-    },
-    ready () {
-        this.reloadCamStream();
+    mounted () {
+        this.getDevices();
     }
 }
 </script>
@@ -119,10 +105,6 @@ export default {
 
         &--cursor {
             cursor: pointer;
-        }
-
-        img {
-            width: 100%;
         }
 
         i {

@@ -11,12 +11,12 @@ module.exports = {
     devtool: '#cheap-module-eval-source-map',
 
     entry: {
-        'domoticz': './assets/scripts/main.js',
+        'domoticz': './scripts/main.js',
         'vendor': ['vue', 'lodash']
     },
 
     output: {
-        filename: 'assets/scripts/[name].js',
+        filename: 'scripts/[name].js',
         path: path.resolve(__dirname, 'dist'),
         publicPath: '//localhost:3000/',
     },
