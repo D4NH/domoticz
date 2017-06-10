@@ -8,7 +8,6 @@
         </div>
 
         <div class="content">
-            <!-- components go here  -->
             <router-view></router-view>
 
             <div class="bottom-nav">
@@ -53,7 +52,7 @@ export default {
     },
     methods : {
         vibrateButton () {
-            navigator.vibrate(50);
+            navigator.vibrate(25);
         }
     }
 }

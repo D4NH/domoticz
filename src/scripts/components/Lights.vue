@@ -7,7 +7,6 @@
                 <small>Last updated: {{ device.LastUpdate | moment }}</small>
             </li>
         </ul>
-
         <ul>
             <li class="switches switches--cursor" v-for="device in devices" v-if="device.idx === '10' || device.idx === '1'" @click="toggleSwitch(device.idx)">
                 <i class="fa fa-fw fa-2x" :class="{'light-on' : device.Status === 'On' && device.idx === '1', 'fa-lightbulb-o' : device.idx === '1', 'fa-tv' : device.idx === '10', 'tv-on' : device.Status === 'On' && device.idx === '10'}" aria-hidden="true"></i>
@@ -15,7 +14,6 @@
                 <small>Last updated: {{ device.LastUpdate | moment }}</small>
             </li>
         </ul>
-
     </div>
     <div v-else>
         <p>error: {{ errorMsg }}</p>
