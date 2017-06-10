@@ -1,37 +1,128 @@
 <template>
     <div class="weather">
-        <img class="card" border="0" src="https://api.buienradar.nl/image/1.0/RadarMapNL">
-        <div class="iframe-container">
-            <iframe src="https://gadgets.buienradar.nl/gadget/forecastandstation/6344/" noresize scrolling=no hspace=0 vspace=0 frameborder=0 marginheight=0 marginwidth=0></iframe>
+        <div class="card weather">
+            <div class="weather-today" v-for="today in weatherToday">
+                <p>
+                    {{ today.date | moment }}<br/>
+                    <small>{{ today.date }}</small>
+                </p>
+                <img :src="today.day.condition.icon" :alt="today.day.condition.text">
+                <p class="weather-condition">{{ today.day.condition.text }}</p>
+                <p>
+                    <span class="weather-temp">{{ today.day.avgtemp_c | roundUp }}&deg;C</span><br/>
+                    <span class="weather-minmaxtemp">{{ today.day.maxtemp_c | roundUp }}&deg;C / {{ today.day.mintemp_c | roundUp }}&deg;C</span>
+                </p>
+            </div>
         </div>
+        <ul class="card weather-forecast">
+            <li class="weather-forecast-day" v-for="(forecast, index) in weatherForecast" v-if="index !== 0">
+                {{ forecast.date | moment }}<br/>
+                <div>
+                    <img :src="forecast.day.condition.icon" :alt="forecast.day.condition.text">
+                </div>
+                {{ forecast.day.maxtemp_c | roundUp }}&deg;C / {{ forecast.day.mintemp_c | roundUp }}&deg;C
+            </li>
+        </ul>
+        <img class="card buienradar" border="0" src="//api.buienradar.nl/image/1.0/RadarMapNL">
     </div>
 </template>
 
 <script>
+import moment from 'moment';
+import { getWeatherTodayAPI, getWeatherForecastAPI } from '../services/domoticz-api';
+
 export default {
-    name: 'weather'
+    name: 'weather',
+    data () {
+        return {
+            weatherToday: [],
+            weatherForecast: [],
+            errorMsg: ''
+        }
+    },
+    filters: {
+        roundUp (value) {
+            return Math.ceil(value);
+        },
+        moment (date) {
+            return moment(date).calendar(null, {
+                sameDay: '[Today]',
+                nextDay: 'dddd',
+                nextWeek: 'dddd',
+                lastDay: '[Yesterday]',
+                lastWeek: '[Last] dddd',
+                sameElse: 'DD/MM/YYYY'
+            });
+        }
+    },
+    methods: {
+        // getWeatherData () {
+        //     getWeatherAPI().then((response) => {
+        //         this.weatherData = response.data.result;
+        //     }).catch(error => {
+        //         this.errorMsg = 'Alles is kapot!';
+        //         this.weatherData = [];
+        //     });
+        // },
+        getWeatherToday () {
+            getWeatherTodayAPI().then((response) => {
+                this.weatherToday = response.data.forecast.forecastday;
+            }).catch(error => {
+                this.errorMsg = 'Alles is kapot!';
+                this.weatherToday = [];
+            });
+        },
+        getWeatherForecast () {
+            getWeatherForecastAPI().then((response) => {
+                this.weatherForecast = response.data.forecast.forecastday;
+            }).catch(error => {
+                this.errorMsg = 'Alles is kapot!';
+                this.weatherForecast = [];
+            });
+        }
+    },
+    mounted () {
+        this.getWeatherToday();
+        this.getWeatherForecast();
+    }
 }
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
-<style lang="scss" scoped>
-    .iframe-container {
-        position: relative;
-        padding-bottom: 56.25%;
-        padding-top: 15px;
-        height: 0;
-        overflow: hidden;
+<style lang="scss">
+    .weather {
         text-align: center;
+        margin-top: 0;
+        padding-top: 15px;
+        padding-bottom: 15px;
 
-        iframe {
-            position: absolute;
-            top:0;
-            left: 0;
-            width: 100%;
-            height: 100%;
+        p {
+            margin-top: 0;
+            margin-bottom: 0;
+        }
+
+        &-temp {
+            font-size: 20px;
+        }
+        &-minmaxtemp,
+        &-condition {
+            font-size: 12px;
+        }
+
+        &-forecast {
+            display: flex;
+            justify-content: space-between;
+            font-size: 10px;
+
+            &-day {
+                display: inline-block;
+                img {
+                    width: 40px;
+                }
+            }
         }
     }
-    img {
+    .buienradar {
         width: 100%;
+        margin-bottom: 10px;
     }
 </style>

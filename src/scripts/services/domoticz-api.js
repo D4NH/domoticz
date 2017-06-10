@@ -6,12 +6,38 @@ export {
     getSunriseAPI,
     getDevicesAPI,
     getToggleAPI,
+    getWeatherAPI,
+    getWeatherTodayAPI,
+    getWeatherForecastAPI,
     getAllDevicesAPI
 };
 
 function getSunriseAPI() {
     const getSunriseAPI = `${BASE_URL}/json.htm?type=command&param=getSunRiseSet`;
     return axios.get(getSunriseAPI).then(response => response);
+}
+
+function getWeatherAPI() {
+    const getWeatherAPI = `${BASE_URL}/json.htm?type=devices&filter=weather&used=true&order=Name`;
+    return axios.get(getWeatherAPI).then(response => response);
+}
+
+function getWeatherTodayAPI() {
+    const APIXU_API_KEY = 'get-it-at-https://www.apixu.com';
+    const APIXU_LOC = 'Rotterdam';
+    const APIXU_API = `http://api.apixu.com/v1/forecast.json?key=${APIXU_API_KEY}&q=${APIXU_LOC}`;
+    const APIXU_FORECAST = `http://api.apixu.com/v1/forecast.json?key=${APIXU_API_KEY}&q=${APIXU_LOC}`;
+
+    return axios.get(APIXU_FORECAST).then(response => response);
+}
+
+function getWeatherForecastAPI() {
+    const APIXU_API_KEY = 'get-it-at-https://www.apixu.com';
+    const APIXU_LOC = 'Rotterdam';
+    const APIXU_API = `http://api.apixu.com/v1/forecast.json?key=${APIXU_API_KEY}&q=${APIXU_LOC}`;
+    const APIXU_FORECAST = `http://api.apixu.com/v1/forecast.json?key=${APIXU_API_KEY}&q=${APIXU_LOC}&days=5`;
+
+    return axios.get(APIXU_FORECAST).then(response => response);
 }
 
 function getDevicesAPI() {

@@ -32,8 +32,7 @@ export default {
 }
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
-<style lang="scss" scoped>
+<style lang="scss">
     .box {
         position: relative;
         @media only screen and (max-width: 500px) {
@@ -43,7 +42,7 @@ export default {
         margin-top: -10px;
     }
 
-    img {
+    img#hikvision {
         width: 100%;
         @media only screen and (max-width: 500px) {
             position: absolute;

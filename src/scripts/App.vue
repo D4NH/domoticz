@@ -98,6 +98,8 @@ export default {
     .card {
         background-color: white;
         padding: 15px;
+        margin-top: 0;
+        margin-bottom: 15px;
         border-bottom: 1px solid #F2F5F7;
         &:last-of-type { border-bottom: none }
 
