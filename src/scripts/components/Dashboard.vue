@@ -166,7 +166,7 @@ export default {
             margin-bottom: 8px;
         }
         li {
-            padding: 9.2px;
+            padding: 9.7px;
         }
     }
     .house {
@@ -175,7 +175,7 @@ export default {
             background-color: white;
         }
         .box {
-            height: 295px;
+            height: 299px;
             margin: 0 auto;
             img {
                 position: absolute;

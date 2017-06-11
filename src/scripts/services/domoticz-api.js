@@ -9,7 +9,8 @@ export {
     getWeatherAPI,
     getWeatherTodayAPI,
     getWeatherForecastAPI,
-    getAllDevicesAPI
+    getAllDevicesAPI,
+    getLogAPI
 };
 
 function getSunriseAPI() {
@@ -51,6 +52,11 @@ function getAllDevicesAPI() {
 }
 
 function getToggleAPI(deviceId) {
-    const toggleSwitchApi = `${BASE_URL}/json.htm?type=command&param=switchlight&idx=${deviceId}&switchcmd=Toggle`
+    const toggleSwitchApi = `${BASE_URL}/json.htm?type=command&param=switchlight&idx=${deviceId}&switchcmd=Toggle`;
     return axios.get(toggleSwitchApi).then(response => response);
+}
+
+function getLogAPI() {
+    const logApi = `${BASE_URL}/json.htm?type=command&param=getlog`;
+    return axios.get(logApi).then(response => response);
 }

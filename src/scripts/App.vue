@@ -32,10 +32,14 @@
                         <i class="fa fa-fw fa-2x fa-cloud" aria-hidden="true"></i><br/>
                         <span>Weather</span>
                     </router-link></li>
-                    <li @click="vibrateButton()"><router-link to="/other">
+                    <li @click="vibrateButton()"><router-link to="/log">
+                        <i class="fa fa-fw fa-2x fa-bars" aria-hidden="true"></i><br/>
+                        <span>Log</span>
+                    </router-link></li>
+                    <!-- <li @click="vibrateButton()"><router-link to="/other">
                         <i class="fa fa-fw fa-2x fa-bars" aria-hidden="true"></i><br/>
                         <span>Other</span>
-                    </router-link></li>
+                    </router-link></li> -->
                 </ul>
             </div>
         </div>
@@ -51,7 +55,6 @@ import SunriseSunset from './components/SunriseSunset';
 
 export default {
     components: {
-        // components go here
         SunriseSunset
     },
     methods : {

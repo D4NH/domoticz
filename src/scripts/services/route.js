@@ -9,6 +9,7 @@ import House from '../components/House';
 import Devices from '../components/Devices';
 import Other from '../components/Other';
 import Weather from '../components/Weather';
+import Log from '../components/Log';
 
 const routes = [
   { path: '/dashboard', component: Dashboard },
@@ -16,6 +17,7 @@ const routes = [
   { path: '/home', component: House },
   { path: '/devices', component: Devices },
   { path: '/weather', component: Weather },
+  { path: '/log', component: Log },
   { path: '*', component: Lights }
 ];
 
