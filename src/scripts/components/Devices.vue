@@ -1,7 +1,8 @@
 <template>
-    <div v-if="devices" class="devices">
-        <ul>
-            <li class="switches" v-for="device in devices" v-if="device.Image === 'Phone'">
+    <div v-if="devices">
+        <span v-if="devices.length === 0"><i class="fa fa-refresh fa-spin fa-fw"></i> Loading...</span>
+        <ul class="switches">
+            <li class="card-container" v-for="device in devices" v-if="device.Image === 'Phone'">
                 <i class="fa fa-fw fa-mobile fa-2x" :class="{'mobile-on' : device.Status === 'On'}" aria-hidden="true"></i>
                 {{ device.Name }}<br/>
                 <small>Last updated: {{ device.LastUpdate | moment }}</small>
@@ -52,30 +53,4 @@ export default {
 </script>
 
 <style lang="scss">
-    .devices {
-        ul {
-            list-style: none;
-            margin-left: 0;
-            padding-left: 0;
-        }
-    }
-    .switches {
-        background-color: white;
-        padding: 15px;
-        border-bottom: 1px solid #F2F5F7;
-        &:last-of-type { border-bottom: none }
-
-        &--cursor {
-            cursor: pointer;
-        }
-
-        i {
-            float: left;
-            margin-right: 15px;
-            margin-top: 5px;
-        }
-    }
-    .mobile-on {
-        color: #01848F;
-    }
 </style>

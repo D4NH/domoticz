@@ -1,14 +1,15 @@
 <template>
-    <div v-if="devices" class="devices">
-        <ul>
-            <li class="switches switches--cursor" v-for="device in devices" v-if="device.TypeImg === 'lightbulb' && device.Image === 'Light' && device.idx !== '1'" @click="toggleSwitch(device.idx)">
+    <div v-if="devices">
+        <span v-if="devices.length === 0"><i class="fa fa-refresh fa-spin fa-fw"></i> Loading...</span>
+        <ul class="switches">
+            <li class="card-container switches--cursor" v-for="device in devices" v-if="device.TypeImg === 'lightbulb' && device.Image === 'Light' && device.idx !== '1'" @click="toggleSwitch(device.idx)">
                 <i class="fa fa-fw fa-lightbulb-o fa-2x" :class="{'light-on' : device.Status === 'On'}" aria-hidden="true"></i>
                 {{ device.Name }}<br/>
                 <small>Last updated: {{ device.LastUpdate | moment }}</small>
             </li>
         </ul>
-        <ul>
-            <li class="switches switches--cursor" v-for="device in devices" v-if="device.idx === '10' || device.idx === '1'" @click="toggleSwitch(device.idx)">
+        <ul class="switches">
+            <li class="card-container switches--cursor" v-for="device in devices" v-if="device.idx === '10' || device.idx === '1'" @click="toggleSwitch(device.idx)">
                 <i class="fa fa-fw fa-2x" :class="{'light-on' : device.Status === 'On' && device.idx === '1', 'fa-lightbulb-o' : device.idx === '1', 'fa-tv' : device.idx === '10', 'tv-on' : device.Status === 'On' && device.idx === '10'}" aria-hidden="true"></i>
                 {{ device.Name }}<br/>
                 <small>Last updated: {{ device.LastUpdate | moment }}</small>
@@ -22,9 +23,6 @@
 
 <script>
 import moment from 'moment';
-import Vue from 'vue';
-
-
 import { getDevicesAPI, getToggleAPI } from '../services/domoticz-api';
 
 export default {
@@ -68,26 +66,4 @@ export default {
 </script>
 
 <style lang="scss">
-    .switches {
-        background-color: white;
-        padding: 15px;
-        border-bottom: 1px solid #F2F5F7;
-        &:last-of-type { border-bottom: none }
-
-        &--cursor {
-            cursor: pointer;
-        }
-
-        i {
-            float: left;
-            margin-right: 15px;
-            margin-top: 5px;
-        }
-    }
-    .light-on {
-        color: #FCD837;
-    }
-    .tv-on {
-        color: #01848F;
-    }
 </style>

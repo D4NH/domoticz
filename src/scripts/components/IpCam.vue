@@ -1,6 +1,7 @@
 <template>
     <div class="box">
-        <img id="hikvision" src="http://192.168.0.102:8010/streaming/channels/1/picture" />
+        <span v-if="loading"><i class="fa fa-refresh fa-spin fa-fw"></i> Loading...</span>
+        <img id="hikvision" src="" />
     </div>
 </template>
 
@@ -9,24 +10,26 @@ export default {
     name: 'ip-cam',
     data () {
         return {
+            loading: true,
             timer: ''
         }
     },
     methods : {
-        reloadCamStream () {
-            document.getElementById('hikvision').src = 'http://192.168.0.102:8010/streaming/channels/1/picture?rand=' + Math.random();
+        getCamStream () {
+            this.loading = false;
+            document.getElementById('hikvision').src = 'http://192.168.0.101:8080/camsnapshot.jpg?idx=1&rand=' + Math.random();
         },
         cancelAutoUpdate () {
             clearInterval(this.timer);
         }
     },
-    created () {
-        this.timer = setInterval(this.reloadCamStream, 5000)
+    activate () {
+        this.getCamStream();
     },
-    ready () {
-        this.reloadCamStream();
+    mounted () {
+        this.timer = setInterval(this.getCamStream, 2000);
     },
-    beforeDestroy() {
+    beforeDestroy () {
         this.cancelAutoUpdate();
     }
 }

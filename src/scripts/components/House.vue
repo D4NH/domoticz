@@ -1,15 +1,16 @@
 <template>
     <div v-if="devices" class="devices">
-        <ul>
-            <li class="switches" v-for="device in devices" v-if="device.idx === '38' || device.idx === '31'">
+        <span v-if="devices.length === 0"><i class="fa fa-refresh fa-spin fa-fw"></i> Loading...</span>
+        <ul class="switches">
+            <li class="card-container" v-for="device in devices" v-if="device.idx === '38' || device.idx === '31'">
                 <i class="fa fa-fw fa-home fa-2x" :class="{'home-on' : device.Status === 'Open'}" aria-hidden="true"></i>
                 {{ device.Name }} {{ device.Status }} <br/>
                 <small>Last updated: {{ device.LastUpdate | moment }}</small>
             </li>
         </ul>
 
-        <ul>
-            <li class="switches">
+        <ul class="switches">
+            <li class="card-container">
                 <i class="fa fa-fw fa-video-camera fa-2x" aria-hidden="true"></i>
                 Camera<br/>
                 <small>HIKVision</small>
@@ -65,30 +66,4 @@ export default {
 </script>
 
 <style lang="scss">
-    .devices {
-        ul {
-            list-style: none;
-            margin-left: 0;
-            padding-left: 0;
-        }
-    }
-    .switches {
-        background-color: white;
-        padding: 15px;
-        border-bottom: 1px solid #F2F5F7;
-        &:last-of-type { border-bottom: none }
-
-        &--cursor {
-            cursor: pointer;
-        }
-
-        i {
-            float: left;
-            margin-right: 15px;
-            margin-top: 5px;
-        }
-    }
-    .home-on {
-        color: #F44336;
-    }
 </style>

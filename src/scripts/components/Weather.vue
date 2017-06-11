@@ -1,7 +1,8 @@
 <template>
-    <div class="weather">
-        <div class="card weather">
-            <div class="weather-today" v-for="today in weatherToday">
+    <div>
+        <span v-if="weatherForecast.length === 0"><i class="fa fa-refresh fa-spin fa-fw"></i> Loading...</span>
+        <div class="switches weather">
+            <div class="card-container weather-today" v-for="today in weatherToday">
                 <p>
                     {{ today.date | moment }}<br/>
                     <small>{{ today.date }}</small>
@@ -14,16 +15,20 @@
                 </p>
             </div>
         </div>
-        <ul class="card weather-forecast">
-            <li class="weather-forecast-day" v-for="(forecast, index) in weatherForecast" v-if="index !== 0">
-                {{ forecast.date | moment }}<br/>
-                <div>
-                    <img :src="forecast.day.condition.icon" :alt="forecast.day.condition.text">
-                </div>
-                {{ forecast.day.maxtemp_c | roundUp }}&deg;C / {{ forecast.day.mintemp_c | roundUp }}&deg;C
-            </li>
-        </ul>
-        <img class="card buienradar" border="0" src="//api.buienradar.nl/image/1.0/RadarMapNL">
+        <div class="switches">
+            <ul class="card-container weather-forecast">
+                <li class="weather-forecast-day" v-for="(forecast, index) in weatherForecast" v-if="index !== 0">
+                    {{ forecast.date | moment }}<br/>
+                    <div>
+                        <img :src="forecast.day.condition.icon" :alt="forecast.day.condition.text">
+                    </div>
+                    {{ forecast.day.maxtemp_c | roundUp }}&deg;C / {{ forecast.day.mintemp_c | roundUp }}&deg;C
+                </li>
+            </ul>
+        </div>
+        <div class="switches">
+            <img class="card-container buienradar" border="0" src="//api.buienradar.nl/image/1.0/RadarMapNL">
+        </div>
     </div>
 </template>
 
@@ -91,9 +96,6 @@ export default {
 <style lang="scss">
     .weather {
         text-align: center;
-        margin-top: 0;
-        padding-top: 15px;
-        padding-bottom: 15px;
 
         p {
             margin-top: 0;
@@ -111,9 +113,9 @@ export default {
         &-forecast {
             display: flex;
             justify-content: space-between;
-            font-size: 10px;
-
+            text-align: center;
             &-day {
+                font-size: 10px;
                 display: inline-block;
                 img {
                     width: 40px;
@@ -123,6 +125,5 @@ export default {
     }
     .buienradar {
         width: 100%;
-        margin-bottom: 10px;
     }
 </style>

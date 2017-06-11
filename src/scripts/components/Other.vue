@@ -1,5 +1,6 @@
 <template>
     <div v-if="devices" class="devices">
+        <span v-if="devices.length === 0"><i class="fa fa-refresh fa-spin fa-fw"></i> Loading...</span>
         <ul>
             <li class="switches" v-for="device in devices">
                 <i class="fa fa-fw fa-sticky-note fa-2x" aria-hidden="true"></i>

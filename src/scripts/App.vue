@@ -8,10 +8,14 @@
         </div>
 
         <div class="content">
-            <router-view></router-view>
+            <router-view><span><i class="fa fa-refresh fa-spin fa-fw"></i> Loading...</span></router-view>
 
             <div class="bottom-nav">
                 <ul>
+                    <li><router-link to="/dashboard">
+                        <i class="fa fa-fw fa-2x fa-tachometer" aria-hidden="true"></i><br/>
+                        <span>Dashboard</span>
+                    </router-link></li>
                     <li @click="vibrateButton()"><router-link to="/">
                         <i class="fa fa-fw fa-2x fa-lightbulb-o" aria-hidden="true"></i><br/>
                         <span>Lights</span>
@@ -59,16 +63,10 @@ export default {
 </script>
 
 <style lang="scss">
+    @import '~mini.css';
     @import '../styles/reset.scss';
     @import '../styles/variables.scss';
-
-    body {
-        font-family: 'Avenir', Helvetica, Arial, sans-serif;
-        -webkit-font-smoothing: antialiased;
-        -moz-osx-font-smoothing: grayscale;
-        color: #2c3e50;
-        background-color: #F2F5F7;
-    }
+    @import '../styles/base.scss';
 
     .wrapper {
         max-width: 1120px;
@@ -82,23 +80,9 @@ export default {
         }
     }
 
-    .header {
-        @media only screen and (min-width: $mobile) {}
-        text-align: center;
-    }
-    .content {
-
-    }
-    .footer {
-        text-align: center;
-    }
-
-
-    .card {
+    .card-container {
         background-color: white;
         padding: 15px;
-        margin-top: 0;
-        margin-bottom: 15px;
         border-bottom: 1px solid #F2F5F7;
         &:last-of-type { border-bottom: none }
 
@@ -109,33 +93,23 @@ export default {
         }
     }
 
-    .bottom-nav {
-        background-color: #2C3E50;
-        position: fixed;
-        left: 0;
-        bottom: 0;
-        width: 100%;
-        padding: 0 15px;
-        display: flex;
-        flex-wrap: no-wrap;
-        justify-content: space-around;
-
-        ul {
-            list-style: none;
+    .switches {
+        margin-bottom: 15px;
+        &--cursor {
+            cursor: pointer;
         }
+    }
 
-        li {
-            display: inline-block;
-            text-align: center;
-            padding: 0 5px;
-        }
-
-        a {
-            color: white;
-            text-decoration: none;
-            span {
-                font-size: 10px;
-            }
-        }
+    .home-on {
+        color: #F44336;
+    }
+    .light-on {
+        color: #FCD837;
+    }
+    .mobile-on {
+        color: #01848F;
+    }
+    .tv-on {
+        color: #01848F;
     }
 </style>
