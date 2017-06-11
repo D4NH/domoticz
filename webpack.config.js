@@ -2,6 +2,7 @@ const path = require('path');
 const FriendlyErrorsPlugin = require('friendly-errors-webpack-plugin');
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+// const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
 const PROD = (process.env.NODE_ENV === 'production');
 
@@ -12,7 +13,7 @@ module.exports = {
 
     entry: {
         'domoticz': './scripts/main.js',
-        'vendor': ['vue', 'lodash']
+        'vendor': ['vue-router', 'vue', 'lodash', 'moment']
     },
 
     output: {
@@ -62,7 +63,9 @@ module.exports = {
     },
 
     plugins: [
-        new webpack.optimize.CommonsChunkPlugin({ name: 'vendor' }),
+        new webpack.optimize.CommonsChunkPlugin({
+            name: 'vendor'
+        }),
         new webpack.NoEmitOnErrorsPlugin(),
         new webpack.DefinePlugin({
             'process.env': { NODE_ENV: JSON.stringify(process.env.NODE_ENV || 'development') }
@@ -74,6 +77,9 @@ module.exports = {
             template: 'index.html',
             inject: true
         }),
+        // new BundleAnalyzerPlugin({
+        //     analyzerMode: 'static'
+        // })
     ],
 
     resolve: {

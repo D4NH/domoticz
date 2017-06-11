@@ -1,6 +1,6 @@
 <template>
     <div class="box">
-        <span v-if="loading"><i class="fa fa-refresh fa-spin fa-fw"></i> Loading...</span>
+        <p class="text-center" v-if="loading"><i class="fa fa-refresh fa-spin fa-fw"></i> Loading...</p>
         <img id="hikvision" src="" />
     </div>
 </template>
@@ -43,6 +43,11 @@ export default {
         }
         overflow: hidden;
         margin-top: -10px;
+        .fa-refresh {
+            float: none;
+            margin-right: 0;
+            margin-top: 0;
+        }
     }
 
     img#hikvision {

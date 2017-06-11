@@ -2,9 +2,9 @@
     <div class="dashboard container">
         <div class="row">
             <div class="col-sm-4 lights">
+                <p class="text-center" v-if="devices.length === 0"><i class="fa fa-refresh fa-spin fa-fw"></i> Loading...</p>
                 <div class="card-container">
                     <div v-if="devices">
-                        <span v-if="devices.length === 0"><i class="fa fa-refresh fa-spin fa-fw"></i> Loading...</span>
                         <ul>
                             <li class="switches--cursor" v-for="device in devices" v-if="device.TypeImg === 'lightbulb' && device.Image === 'Light' && device.idx !== '1'" @click="toggleSwitch(device.idx)">
                                 <i class="fa fa-fw fa-lightbulb-o fa-2x" :class="{'light-on' : device.Status === 'On'}" aria-hidden="true"></i>
@@ -19,7 +19,6 @@
                 </div>
                 <div class="card-container">
                     <div v-if="devices">
-                        <span v-if="devices.length === 0"><i class="fa fa-refresh fa-spin fa-fw"></i> Loading...</span>
                         <ul>
                             <li class="switches--cursor" v-for="device in devices" v-if="device.idx === '10' || device.idx === '1'" @click="toggleSwitch(device.idx)">
                                 <i class="fa fa-fw fa-2x" :class="{'light-on' : device.Status === 'On' && device.idx === '1', 'fa-lightbulb-o' : device.idx === '1', 'fa-tv' : device.idx === '10', 'tv-on' : device.Status === 'On' && device.idx === '10'}" aria-hidden="true"></i>
@@ -34,6 +33,7 @@
                 </div>
             </div>
             <div class="col-sm-3 weather-report">
+                <p class="text-center" v-if="weatherToday.length === 0"><i class="fa fa-refresh fa-spin fa-fw"></i> Loading...</p>
                 <div class="card-container">
                     <div class="weather-today" v-for="today in weatherToday">
                         <p>
@@ -51,6 +51,7 @@
                 <img class="buienradar" border="0" src="//api.buienradar.nl/image/1.0/RadarMapNL">
             </div>
             <div class="col-sm-5 house">
+                <p class="text-center" v-if="devices.length === 0"><i class="fa fa-refresh fa-spin fa-fw"></i> Loading...</p>
                 <div class="card-container">
                     <ul>
                         <li v-for="device in devices" v-if="device.idx === '38' || device.idx === '31'">
@@ -60,7 +61,7 @@
                         </li>
                     </ul>
                 </div>
-                <div class="cam-container">
+                <div class="cam-container" :class="{'popup': popup}" @click="togglePopup">
                     <ip-cam></ip-cam>
                 </div>
             </div>
@@ -93,6 +94,7 @@ export default {
     name: 'dashboard',
     data () {
         return {
+            popup: false,
             devices: [],
             weatherToday: [],
             errorMsg: ''
@@ -117,6 +119,9 @@ export default {
         }
     },
     methods : {
+        togglePopup () {
+            this.popup = !this.popup;
+        },
         moment () {
             return moment();
         },
@@ -170,9 +175,29 @@ export default {
             background-color: white;
         }
         .box {
-            width: 225px;
             height: 295px;
             margin: 0 auto;
+            img {
+                position: absolute;
+                bottom: -110px;
+            }
+        }
+    }
+    .popup {
+        position: absolute;
+        margin-left: auto;
+        margin-right: auto;
+        left: 0;
+        right: 0;
+        top: 0;
+        bottom: 0;
+        .box {
+            width: auto;
+            height: auto;
+            img {
+                position: relative;
+                top: 0;
+            }
         }
     }
     .weather-report {

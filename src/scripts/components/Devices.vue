@@ -1,6 +1,6 @@
 <template>
     <div v-if="devices">
-        <span v-if="devices.length === 0"><i class="fa fa-refresh fa-spin fa-fw"></i> Loading...</span>
+        <p class="text-center" v-if="devices.length === 0"><i class="fa fa-refresh fa-spin fa-fw"></i> Loading...</p>
         <ul class="switches">
             <li class="card-container" v-for="device in devices" v-if="device.Image === 'Phone'">
                 <i class="fa fa-fw fa-mobile fa-2x" :class="{'mobile-on' : device.Status === 'On'}" aria-hidden="true"></i>
