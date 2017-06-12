@@ -1,8 +1,8 @@
 <template>
     <div v-if="devices" class="devices">
-        <p class="text-center" v-if="devices.length === 0"><i class="fa fa-refresh fa-spin fa-fw"></i> Loading...</p>
         <ul class="switches">
             <li class="card-container" v-for="device in devices" v-if="device.idx === '38' || device.idx === '31'">
+                <p class="text-center" v-if="devices.length === 0"><i class="fa fa-refresh fa-spin fa-fw"></i> Loading...</p>
                 <i class="fa fa-fw fa-home fa-2x" :class="{'home-on' : device.Status === 'Open'}" aria-hidden="true"></i>
                 {{ device.Name }} {{ device.Status }} <br/>
                 <small>Last updated: {{ device.LastUpdate | moment }}</small>

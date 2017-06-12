@@ -1,8 +1,8 @@
 <template>
     <div>
-        <p class="text-center" v-if="weatherForecast.length === 0"><i class="fa fa-refresh fa-spin fa-fw"></i> Loading...</p>
         <div class="switches weather">
             <div class="card-container weather-today" v-for="today in weatherToday">
+                <p class="text-center" v-if="weatherForecast.length === 0"><i class="fa fa-refresh fa-spin fa-fw"></i> Loading...</p>
                 <p>
                     {{ today.date | moment }}<br/>
                     <small>{{ today.date }}</small>

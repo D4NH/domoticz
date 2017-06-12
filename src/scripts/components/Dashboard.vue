@@ -2,8 +2,8 @@
     <div class="dashboard container">
         <div class="row">
             <div class="col-sm-4 lights">
-                <p class="text-center" v-if="devices.length === 0"><i class="fa fa-refresh fa-spin fa-fw"></i> Loading...</p>
                 <div class="card-container">
+                    <p class="text-center" v-if="devices.length === 0"><i class="fa fa-refresh fa-spin fa-fw"></i> Loading...</p>
                     <div v-if="devices">
                         <ul>
                             <li class="switches--cursor" v-for="device in devices" v-if="device.TypeImg === 'lightbulb' && device.Image === 'Light' && device.idx !== '1'" @click="toggleSwitch(device.idx)">
@@ -18,6 +18,7 @@
                     </div>
                 </div>
                 <div class="card-container">
+                    <p class="text-center" v-if="devices.length === 0"><i class="fa fa-refresh fa-spin fa-fw"></i> Loading...</p>
                     <div v-if="devices">
                         <ul>
                             <li class="switches--cursor" v-for="device in devices" v-if="device.idx === '10' || device.idx === '1'" @click="toggleSwitch(device.idx)">
@@ -33,8 +34,8 @@
                 </div>
             </div>
             <div class="col-sm-3 weather-report">
-                <p class="text-center" v-if="weatherToday.length === 0"><i class="fa fa-refresh fa-spin fa-fw"></i> Loading...</p>
                 <div class="card-container">
+                    <p class="text-center" v-if="weatherToday.length === 0"><i class="fa fa-refresh fa-spin fa-fw"></i> Loading...</p>
                     <div class="weather-today" v-for="today in weatherToday">
                         <p>
                             {{ today.date | momentCal }}<br/>
@@ -51,8 +52,8 @@
                 <img class="buienradar" border="0" src="//api.buienradar.nl/image/1.0/RadarMapNL">
             </div>
             <div class="col-sm-5 house">
-                <p class="text-center" v-if="devices.length === 0"><i class="fa fa-refresh fa-spin fa-fw"></i> Loading...</p>
                 <div class="card-container">
+                    <p class="text-center" v-if="devices.length === 0"><i class="fa fa-refresh fa-spin fa-fw"></i> Loading...</p>
                     <ul>
                         <li v-for="device in devices" v-if="device.idx === '38' || device.idx === '31'">
                             <i class="fa fa-fw fa-home fa-2x" :class="{'home-on' : device.Status === 'Open'}" aria-hidden="true"></i>
