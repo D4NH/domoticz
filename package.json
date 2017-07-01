@@ -7,7 +7,7 @@
   "license": "MIT",
   "scripts": {
     "build": "rm -rf dist; NODE_ENV=production webpack -p --progress --colors;",
-    "start": "webpack-dev-server -d --history-api-fallback --inline --hot --progress --colors --port 3000 --open"
+    "start": "webpack-dev-server -d --history-api-fallback --inline --hot --progress --colors --port 3000"
   },
   "dependencies": {
     "axios": "^0.16.2",
@@ -36,7 +36,7 @@
     "url-loader": "^0.5.8",
     "vue-loader": "^12.2.1",
     "vue-template-compiler": "^2.3.3",
-    "webpack": "^2.6.1",
+    "webpack": "^3.0.0",
     "webpack-bundle-analyzer": "^2.8.2",
     "webpack-dev-server": "^2.4.5"
   }

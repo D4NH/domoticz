@@ -17,8 +17,8 @@ export default {
     methods : {
         getCamStream () {
             const BASE_URL = (window.location.href.indexOf('localhost') > -1 || window.location.href.indexOf('192') > -1) ? 'http://192.168.0.101:8080' : 'https://thuis.danhnguyen.nl';
-
             document.getElementById('hikvision').src = `${BASE_URL}/camsnapshot.jpg?idx=1&rand=` + Math.random();
+            this.loading = false;
         },
         cancelAutoUpdate () {
             clearInterval(this.timer);
@@ -28,7 +28,6 @@ export default {
         this.getCamStream();
     },
     mounted () {
-        this.loading = false;
         this.timer = setInterval(this.getCamStream, 2000);
     },
     beforeDestroy () {

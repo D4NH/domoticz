@@ -9,7 +9,7 @@ const PROD = (process.env.NODE_ENV === 'production');
 module.exports = {
     context: path.join(__dirname, 'src'),
 
-    devtool: '#cheap-module-eval-source-map',
+    devtool: 'eval',
 
     entry: {
         'domoticz': './scripts/main.js',
@@ -66,6 +66,8 @@ module.exports = {
         new webpack.optimize.CommonsChunkPlugin({
             name: 'vendor'
         }),
+        new webpack.optimize.ModuleConcatenationPlugin(),
+        new webpack.optimize.OccurrenceOrderPlugin(),
         new webpack.NoEmitOnErrorsPlugin(),
         new webpack.DefinePlugin({
             'process.env': { NODE_ENV: JSON.stringify(process.env.NODE_ENV || 'development') }
@@ -80,6 +82,10 @@ module.exports = {
         // new BundleAnalyzerPlugin({
         //     analyzerMode: 'static'
         // })
+        new webpack.LoaderOptionsPlugin({
+          minimize: true,
+          debug: false
+        }),
     ],
 
     resolve: {

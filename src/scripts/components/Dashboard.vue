@@ -17,7 +17,7 @@
                         <p>error: {{ errorMsg }}</p>
                     </div>
                 </div>
-                <div class="card-container">
+                <div class="card-container-b">
                     <p class="text-center" v-if="devices.length === 0"><i class="fa fa-refresh fa-spin fa-fw"></i> Loading...</p>
                     <div v-if="devices">
                         <ul>
@@ -51,7 +51,7 @@
                 </div>
                 <img class="buienradar" border="0" src="//api.buienradar.nl/image/1.0/RadarMapNL">
             </div>
-            <div class="col-sm-5 house">
+            <div class="col-sm-4 house">
                 <div class="card-container">
                     <p class="text-center" v-if="devices.length === 0"><i class="fa fa-refresh fa-spin fa-fw"></i> Loading...</p>
                     <ul>
@@ -159,30 +159,20 @@ export default {
 </script>
 
 <style lang="scss">
+    .card-container-b {
+        background-color: white;
+        padding: 15px;
+        border-bottom: 1px solid #F2F5F7;
+        &:last-of-type { border-bottom: none }
+
+        i {
+            float: left;
+            margin-right: 15px;
+            margin-top: 5px;
+        }
+    }
     .row {
         margin-bottom: 8px;
-    }
-    .lights, .house {
-        .card-container {
-            margin-bottom: 8px;
-        }
-        li {
-            padding: 9.7px;
-        }
-    }
-    .house {
-        overflow: hidden;
-        .cam-container {
-            background-color: white;
-        }
-        .box {
-            height: 299px;
-            margin: 0 auto;
-            img {
-                position: absolute;
-                bottom: -110px;
-            }
-        }
     }
     .popup {
         position: absolute;
@@ -201,6 +191,23 @@ export default {
             }
         }
     }
+    .lights {
+        margin-left: 45px;
+    }
+    .house {
+        overflow: hidden;
+        .cam-container {
+            background-color: white;
+        }
+        .box {
+            height: 299px;
+            margin: 0 auto;
+            img {
+                position: absolute;
+                bottom: -110px;
+            }
+        }
+    }
     .weather-report {
         text-align: center;
         p {
@@ -214,6 +221,25 @@ export default {
         }
         .buienradar {
             margin-top: 8px;
+        }
+    }
+    .lights,
+    .house {
+        .card-container {
+            margin-bottom: 8px;
+        }
+        li {
+            padding: 9.7px;
+        }
+    }
+    .lights,
+    .house,
+    .weather-report {
+        display: flex;
+        flex-direction: column;
+
+        .card-container {
+            flex: 1;
         }
     }
 </style>
