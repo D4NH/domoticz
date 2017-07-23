@@ -74,7 +74,7 @@ export default {
                 this.weatherToday = response.data.forecast.forecastday;
             }).catch(error => {
                 this.errorMsg = 'Alles is kapot!';
-                this.weatherToday = [];
+                this.weatherToday = null;
             });
         },
         getWeatherForecast () {
@@ -82,7 +82,7 @@ export default {
                 this.weatherForecast = response.data.forecast.forecastday;
             }).catch(error => {
                 this.errorMsg = 'Alles is kapot!';
-                this.weatherForecast = [];
+                this.weatherForecast = null;
             });
         }
     },

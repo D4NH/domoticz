@@ -42,7 +42,7 @@ export default {
                 this.devices = response.data.result.sort();
             }).catch(error => {
                 this.errorMsg = 'Alles is kapot!';
-                this.devices = [];
+                this.devices = null;
             });
         }
     },

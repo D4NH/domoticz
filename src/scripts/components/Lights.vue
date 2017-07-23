@@ -1,16 +1,16 @@
 <template>
     <div v-if="devices">
         <ul class="switches">
-            <li class="card-container switches--cursor" v-for="device in devices" v-if="device.TypeImg === 'lightbulb' && device.Image === 'Light' && device.idx !== '1'" @click="toggleSwitch(device.idx)">
-                <p class="text-center" v-if="loading"><i class="fa fa-refresh fa-spin fa-fw"></i> Loading...</p>
+            <li class="card-container switches--cursor" v-for="device in devices" v-if="device.TypeImg === 'lightbulb' && device.Image === 'Light' && device.idx !== '3'" @click="toggleSwitch(device.idx)">
+                <p class="text-center" v-if="devices.length === 0"><i class="fa fa-refresh fa-spin fa-fw"></i> Loading...</p>
                 <i class="fa fa-fw fa-lightbulb-o fa-2x" :class="{'light-on' : device.Status === 'On'}" aria-hidden="true"></i>
                 {{ device.Name }}<br/>
                 <small>Last updated: {{ device.LastUpdate | moment }}</small>
             </li>
         </ul>
         <ul class="switches">
-            <li class="card-container switches--cursor" v-for="device in devices" v-if="device.idx === '10' || device.idx === '1'" @click="toggleSwitch(device.idx)">
-                <i class="fa fa-fw fa-2x" :class="{'light-on' : device.Status === 'On' && device.idx === '1', 'fa-lightbulb-o' : device.idx === '1', 'fa-tv' : device.idx === '10', 'tv-on' : device.Status === 'On' && device.idx === '10'}" aria-hidden="true"></i>
+            <li class="card-container switches--cursor" v-for="device in devices" v-if="device.idx === '10' || device.idx === '3'" @click="toggleSwitch(device.idx)">
+                <i class="fa fa-fw fa-2x" :class="{'light-on' : device.Status === 'On' && device.idx === '3', 'fa-lightbulb-o' : device.idx === '3', 'fa-tv' : device.idx === '10', 'tv-on' : device.Status === 'On' && device.idx === '10'}" aria-hidden="true"></i>
                 {{ device.Name }}<br/>
                 <small>Last updated: {{ device.LastUpdate | moment }}</small>
             </li>
@@ -30,8 +30,7 @@ export default {
     data () {
         return {
             devices: [],
-            errorMsg: '',
-            loading: true
+            errorMsg: ''
         }
     },
     filters: {
@@ -46,11 +45,9 @@ export default {
         getDevices () {
             getDevicesAPI ().then((response) => {
                 this.devices = response.data.result.sort();
-                this.loading = false;
             }).catch(error => {
                 this.errorMsg = 'Alles is kapot!';
-                this.devices = [];
-                this.loading = false;
+                this.devices = null;
             });
         },
         toggleSwitch (deviceId) {
@@ -58,7 +55,7 @@ export default {
                 this.getDevices();
             }).catch(error => {
                 this.errorMsg = 'Alles is kapot!';
-                this.devices = [];
+                this.devices = null;
             });
         }
     },

@@ -19,7 +19,7 @@ export default {
                 this.sunData = response.data;
             }).catch(error => {
                 this.errorMsg = 'Alles is kapot!';
-                this.sunData = [];
+                this.sunData = null;
             });
         }
     },

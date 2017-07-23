@@ -27,7 +27,7 @@ export default {
                 this.logData = response.data.result;
             }).catch(error => {
                 this.errorMsg = 'Alles is kapot!';
-                this.logData = [];
+                this.logData = null;
             });
         },
         cancelAutoUpdate () {

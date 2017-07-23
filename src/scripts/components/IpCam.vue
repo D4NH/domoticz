@@ -28,7 +28,7 @@ export default {
         this.getCamStream();
     },
     mounted () {
-        this.timer = setInterval(this.getCamStream, 2000);
+        this.timer = setInterval(this.getCamStream, 5000);
     },
     beforeDestroy () {
         this.cancelAutoUpdate();

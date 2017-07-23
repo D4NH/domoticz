@@ -6,7 +6,7 @@
                     <p class="text-center" v-if="devices.length === 0"><i class="fa fa-refresh fa-spin fa-fw"></i> Loading...</p>
                     <div v-if="devices">
                         <ul>
-                            <li class="switches--cursor" v-for="device in devices" v-if="device.TypeImg === 'lightbulb' && device.Image === 'Light' && device.idx !== '1'" @click="toggleSwitch(device.idx)">
+                            <li class="switches--cursor" v-for="device in devices" v-if="device.TypeImg === 'lightbulb' && device.Image === 'Light' && device.idx !== '3'" @click="toggleSwitch(device.idx)">
                                 <i class="fa fa-fw fa-lightbulb-o fa-2x" :class="{'light-on' : device.Status === 'On'}" aria-hidden="true"></i>
                                 {{ device.Name }}<br/>
                                 <small>Last updated: {{ device.LastUpdate | moment }}</small>
@@ -21,8 +21,8 @@
                     <p class="text-center" v-if="devices.length === 0"><i class="fa fa-refresh fa-spin fa-fw"></i> Loading...</p>
                     <div v-if="devices">
                         <ul>
-                            <li class="switches--cursor" v-for="device in devices" v-if="device.idx === '10' || device.idx === '1'" @click="toggleSwitch(device.idx)">
-                                <i class="fa fa-fw fa-2x" :class="{'light-on' : device.Status === 'On' && device.idx === '1', 'fa-lightbulb-o' : device.idx === '1', 'fa-tv' : device.idx === '10', 'tv-on' : device.Status === 'On' && device.idx === '10'}" aria-hidden="true"></i>
+                            <li class="switches--cursor" v-for="device in devices" v-if="device.idx === '10' || device.idx === '3'" @click="toggleSwitch(device.idx)">
+                                <i class="fa fa-fw fa-2x" :class="{'light-on' : device.Status === 'On' && device.idx === '3', 'fa-lightbulb-o' : device.idx === '3', 'fa-tv' : device.idx === '10', 'tv-on' : device.Status === 'On' && device.idx === '10'}" aria-hidden="true"></i>
                                 {{ device.Name }}<br/>
                                 <small>Last updated: {{ device.LastUpdate | moment }}</small>
                             </li>
@@ -131,7 +131,7 @@ export default {
                 this.devices = response.data.result.sort();
             }).catch(error => {
                 this.errorMsg = 'Alles is kapot!';
-                this.devices = [];
+                this.devices = null;
             });
         },
         toggleSwitch (deviceId) {
@@ -139,7 +139,7 @@ export default {
                 this.getDevices();
             }).catch(error => {
                 this.errorMsg = 'Alles is kapot!';
-                this.devices = [];
+                this.devices = null;
             });
         },
         getWeatherToday () {
@@ -147,7 +147,7 @@ export default {
                 this.weatherToday = response.data.forecast.forecastday;
             }).catch(error => {
                 this.errorMsg = 'Alles is kapot!';
-                this.weatherToday = [];
+                this.weatherToday = null;
             });
         }
     },
