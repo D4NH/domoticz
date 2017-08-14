@@ -1,7 +1,8 @@
 <template>
     <div class="box">
         <p class="text-center" v-if="loading"><i class="fa fa-refresh fa-spin fa-fw"></i> Loading...</p>
-        <img id="hikvision" src="" />
+        <p id="hikvision"></p>
+        <!-- <img id="hikvision" src="" /> -->
     </div>
 </template>
 
@@ -17,7 +18,8 @@ export default {
     methods : {
         getCamStream () {
             const BASE_URL = (window.location.href.indexOf('localhost') > -1 || window.location.href.indexOf('192') > -1) ? 'http://192.168.0.101:8080' : 'https://thuis.danhnguyen.nl';
-            document.getElementById('hikvision').src = `${BASE_URL}/camsnapshot.jpg?idx=1&rand=` + Math.random();
+            // document.getElementById('hikvision').src = `${BASE_URL}/camsnapshot.jpg?idx=1&rand=` + Math.random();
+            document.getElementById('hikvision').innerHTML = 'Waiting for new IP-Cam...';
             this.loading = false;
         },
         cancelAutoUpdate () {
