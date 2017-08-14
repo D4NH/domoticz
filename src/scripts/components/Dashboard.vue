@@ -50,7 +50,7 @@
                 </div>
             </div>
             <div class="col-sm-3 weather-report">
-                <div class="card-container" :class="{'loading' : devices.length === 0}">
+                <div class="card-container loading">
                     <p class="text-center" v-if="weatherToday.length === 0"><i class="fa fa-refresh fa-spin fa-fw"></i> Loading...</p>
                     <div class="weather-today" v-for="today in weatherToday">
                         <p>
