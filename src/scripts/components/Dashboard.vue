@@ -2,7 +2,7 @@
     <div class="dashboard container">
         <div class="row">
             <div class="col-sm-4 lights">
-                <div class="card-container">
+                <div class="card-container" :class="{'loading' : devices.length === 0}">
                     <p class="text-center" v-if="devices.length === 0"><i class="fa fa-refresh fa-spin fa-fw"></i> Loading...</p>
                     <div v-if="devices">
                         <ul>
@@ -17,7 +17,23 @@
                         <p>error: {{ errorMsg }}</p>
                     </div>
                 </div>
-                <div class="card-container-b">
+                <div class="card-container" :class="{'loading' : devices.length === 0}">
+                    <p class="text-center" v-if="devices.length === 0"><i class="fa fa-refresh fa-spin fa-fw"></i> Loading...</p>
+                    <div v-if="devices">
+                        <ul>
+                            <li class="switches--cursor" v-for="device in devices" v-if="device.Image === 'Phone'">
+                                <p class="text-center" v-if="devices.length === 0"><i class="fa fa-refresh fa-spin fa-fw"></i> Loading...</p>
+                                <i class="fa fa-fw fa-mobile fa-2x" :class="{'mobile-on' : device.Status === 'On'}" aria-hidden="true"></i>
+                                {{ device.Name }}<br/>
+                                <small>Last updated: {{ device.LastUpdate | moment }}</small>
+                            </li>
+                        </ul>
+                    </div>
+                    <div v-else>
+                        <p>error: {{ errorMsg }}</p>
+                    </div>
+                </div>
+                <div class="card-container-b" :class="{'loading' : devices.length === 0}">
                     <p class="text-center" v-if="devices.length === 0"><i class="fa fa-refresh fa-spin fa-fw"></i> Loading...</p>
                     <div v-if="devices">
                         <ul>
@@ -34,7 +50,7 @@
                 </div>
             </div>
             <div class="col-sm-3 weather-report">
-                <div class="card-container">
+                <div class="card-container" :class="{'loading' : devices.length === 0}">
                     <p class="text-center" v-if="weatherToday.length === 0"><i class="fa fa-refresh fa-spin fa-fw"></i> Loading...</p>
                     <div class="weather-today" v-for="today in weatherToday">
                         <p>
@@ -52,10 +68,10 @@
                 <img class="buienradar" border="0" src="//api.buienradar.nl/image/1.0/RadarMapNL">
             </div>
             <div class="col-sm-4 house">
-                <div class="card-container">
+                <div class="card-container" :class="{'loading' : devices.length === 0}">
                     <p class="text-center" v-if="devices.length === 0"><i class="fa fa-refresh fa-spin fa-fw"></i> Loading...</p>
                     <ul>
-                        <li v-for="device in devices" v-if="device.idx === '38' || device.idx === '31'">
+                        <li v-for="device in devices" v-if="device.idx === '38' || device.idx === '31' || device.idx === '46'">
                             <i class="fa fa-fw fa-home fa-2x" :class="{'home-on' : device.Status === 'Open'}" aria-hidden="true"></i>
                             {{ device.Name }} {{ device.Status }} <br/>
                             <small>Last updated: {{ device.LastUpdate | moment }}</small>
@@ -159,6 +175,11 @@ export default {
 </script>
 
 <style lang="scss">
+    .loading {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
     .card-container-b {
         background-color: white;
         padding: 15px;
@@ -200,6 +221,10 @@ export default {
             background-color: white;
         }
         .box {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
             height: 299px;
             margin: 0 auto;
             img {
