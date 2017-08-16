@@ -1,18 +1,23 @@
 <template>
     <div>
-        <div class="switches weather">
-            <div class="card-container weather-today" v-for="today in weatherToday">
-                <p class="text-center" v-if="weatherForecast.length === 0"><i class="fa fa-refresh fa-spin fa-fw"></i> Loading...</p>
-                <p>
-                    {{ today.date | moment }}<br/>
-                    <small>{{ today.date }}</small>
-                </p>
-                <img :src="today.day.condition.icon" :alt="today.day.condition.text">
-                <p class="weather-condition">{{ today.day.condition.text }}</p>
-                <p>
-                    <span class="weather-temp">{{ today.day.avgtemp_c | roundUp }}&deg;C</span><br/>
-                    <span class="weather-minmaxtemp">{{ today.day.maxtemp_c | roundUp }}&deg;C / {{ today.day.mintemp_c | roundUp }}&deg;C</span>
-                </p>
+        <div class="row">
+            <div class="col-sm-6 switches weather">
+                <div class="card-container weather-today" v-for="today in weatherToday">
+                    <p class="text-center" v-if="weatherForecast.length === 0"><i class="fa fa-refresh fa-spin fa-fw"></i> Loading...</p>
+                    <p>
+                        {{ today.date | moment }}<br/>
+                        <small>{{ today.date }}</small>
+                    </p>
+                    <img :src="today.day.condition.icon" :alt="today.day.condition.text">
+                    <p class="weather-condition">{{ today.day.condition.text }}</p>
+                    <p>
+                        <span class="weather-temp">{{ today.day.avgtemp_c | roundUp }}&deg;C</span><br/>
+                        <span class="weather-minmaxtemp">{{ today.day.maxtemp_c | roundUp }}&deg;C / {{ today.day.mintemp_c | roundUp }}&deg;C</span>
+                    </p>
+                </div>
+            </div>
+            <div class="col-sm-6 switches">
+                <img class="buienradar" border="0" src="//api.buienradar.nl/image/1.0/RadarMapNL">
             </div>
         </div>
         <div class="switches">
@@ -26,9 +31,7 @@
                 </li>
             </ul>
         </div>
-        <div class="switches">
-            <img class="card-container buienradar" border="0" src="//api.buienradar.nl/image/1.0/RadarMapNL">
-        </div>
+
     </div>
 </template>
 
@@ -102,6 +105,15 @@ export default {
             margin-bottom: 0;
         }
 
+        &-today {
+            height: 100%;
+            display: flex;
+            flex: 1;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+        }
+
         &-temp {
             font-size: 20px;
         }
@@ -125,5 +137,7 @@ export default {
     }
     .buienradar {
         width: 100%;
+        height: 100%;
+        flex: 1;
     }
 </style>

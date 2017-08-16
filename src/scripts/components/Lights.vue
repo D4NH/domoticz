@@ -1,7 +1,7 @@
 <template>
     <div v-if="devices">
         <ul class="switches">
-            <li class="card-container switches--cursor" v-for="device in devices" v-if="device.TypeImg === 'lightbulb' && device.Image === 'Light' && device.idx !== '3'" @click="toggleSwitch(device.idx)">
+            <li class="card-container switches--cursor" v-for="device in devices" v-if="device.TypeImg === 'lightbulb' && device.Image === 'Light' && device.idx !== '3' && device.idx !== '48'" @click="toggleSwitch(device.idx)">
                 <p class="text-center" v-if="devices.length === 0"><i class="fa fa-refresh fa-spin fa-fw"></i> Loading...</p>
                 <i class="fa fa-fw fa-lightbulb-o fa-2x" :class="{'light-on' : device.Status === 'On'}" aria-hidden="true"></i>
                 {{ device.Name }}<br/>
@@ -44,7 +44,7 @@ export default {
         },
         getDevices () {
             getDevicesAPI ().then((response) => {
-                this.devices = response.data.result.sort();
+                this.devices = response.data.result;
             }).catch(error => {
                 this.errorMsg = 'Alles is kapot!';
                 this.devices = null;

@@ -2,20 +2,21 @@
     <div class="dashboard container">
         <div class="row">
             <div class="col-sm-4 lights">
-                <div class="card-container" :class="{'loading' : devices.length === 0}">
-                    <p class="text-center" v-if="devices.length === 0"><i class="fa fa-refresh fa-spin fa-fw"></i> Loading...</p>
-                    <div v-if="devices">
-                        <ul>
-                            <li class="switches--cursor" v-for="device in devices" v-if="device.TypeImg === 'lightbulb' && device.Image === 'Light' && device.idx !== '3'" @click="toggleSwitch(device.idx)">
-                                <i class="fa fa-fw fa-lightbulb-o fa-2x" :class="{'light-on' : device.Status === 'On'}" aria-hidden="true"></i>
-                                {{ device.Name }}<br/>
-                                <small>Last updated: {{ device.LastUpdate | moment }}</small>
-                            </li>
-                        </ul>
+                <div v-if="devices">
+                    <div class="card-container" :class="{'loading' : devices.length === 0}">
+                        <p class="text-center" v-if="devices.length === 0"><i class="fa fa-refresh fa-spin fa-fw"></i> Loading...</p>
+
+                            <ul>
+                                <li class="switches--cursor" v-for="device in devices" v-if="device.TypeImg === 'lightbulb' && device.Image === 'Light' && device.idx !== '3' && device.idx !== '48'" @click="toggleSwitch(device.idx)">
+                                    <i class="fa fa-fw fa-lightbulb-o fa-2x" :class="{'light-on' : device.Status === 'On'}" aria-hidden="true"></i>
+                                    {{ device.Name }}<br/>
+                                    <small>Last updated: {{ device.LastUpdate | moment }}</small>
+                                </li>
+                            </ul>
+                        </div>
                     </div>
-                    <div v-else>
-                        <p>error: {{ errorMsg }}</p>
-                    </div>
+                <div v-else>
+                    <p>error: {{ errorMsg }}</p>
                 </div>
                 <div class="card-container" :class="{'loading' : devices.length === 0}">
                     <p class="text-center" v-if="devices.length === 0"><i class="fa fa-refresh fa-spin fa-fw"></i> Loading...</p>
@@ -71,9 +72,9 @@
                 <div class="card-container" :class="{'loading' : devices.length === 0}">
                     <p class="text-center" v-if="devices.length === 0"><i class="fa fa-refresh fa-spin fa-fw"></i> Loading...</p>
                     <ul>
-                        <li v-for="device in devices" v-if="device.idx === '38' || device.idx === '31' || device.idx === '46'">
+                        <li v-for="device in devices" v-if="device.idx === '39' || device.idx === '31' || device.idx === '46'">
                             <i class="fa fa-fw fa-home fa-2x" :class="{'home-on' : device.Status === 'Open'}" aria-hidden="true"></i>
-                            {{ device.Name }} {{ device.Status }} <br/>
+                            {{ device.Name }}<br/>
                             <small>Last updated: {{ device.LastUpdate | moment }}</small>
                         </li>
                     </ul>
@@ -144,7 +145,7 @@ export default {
         },
         getDevices () {
             getDevicesAPI ().then((response) => {
-                this.devices = response.data.result.sort();
+                this.devices = response.data.result;
             }).catch(error => {
                 this.errorMsg = 'Alles is kapot!';
                 this.devices = null;
@@ -264,7 +265,13 @@ export default {
         flex-direction: column;
 
         .card-container {
+            display: flex;
+            align-items: center;
             flex: 1;
+
+            ul {
+                width: 100%;
+            }
         }
     }
 </style>

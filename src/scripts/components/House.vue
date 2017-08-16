@@ -1,10 +1,10 @@
 <template>
     <div v-if="devices" class="devices">
         <ul class="switches">
-            <li class="card-container" v-for="device in devices" v-if="device.idx === '38' || device.idx === '31' || device.idx === '46'">
+            <li class="card-container" v-for="device in devices" v-if="device.idx === '39' || device.idx === '31' || device.idx === '46'">
                 <p class="text-center" v-if="devices.length === 0"><i class="fa fa-refresh fa-spin fa-fw"></i> Loading...</p>
                 <i class="fa fa-fw fa-home fa-2x" :class="{'home-on' : device.Status === 'Open'}" aria-hidden="true"></i>
-                {{ device.Name }} {{ device.Status }} <br/>
+                {{ device.Name }}<br/>
                 <small>Last updated: {{ device.LastUpdate | moment }}</small>
             </li>
         </ul>
