@@ -94,6 +94,10 @@ export default {
             margin-right: 15px;
             margin-top: 5px;
         }
+
+        ul {
+            width: 100%;
+        }
     }
 
     .switches {
