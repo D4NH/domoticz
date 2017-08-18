@@ -38,8 +38,8 @@
                     <p class="text-center" v-if="devices.length === 0"><i class="fa fa-refresh fa-spin fa-fw"></i> Loading...</p>
                     <div v-if="devices">
                         <ul>
-                            <li class="switches--cursor" v-for="device in devices" v-if="device.idx === '10' || device.idx === '3'" @click="toggleSwitch(device.idx)">
-                                <i class="fa fa-fw fa-2x" :class="{'light-on' : device.Status === 'On' && device.idx === '3', 'fa-lightbulb-o' : device.idx === '3', 'fa-tv' : device.idx === '10', 'tv-on' : device.Status === 'On' && device.idx === '10'}" aria-hidden="true"></i>
+                            <li class="switches--cursor" v-for="device in devices" v-if="device.idx === '49' || device.idx === '3'" @click="toggleSwitch(device.idx)">
+                                <i class="fa fa-fw fa-2x" :class="{'light-on' : device.Status === 'On' && device.idx === '3', 'fa-lightbulb-o' : device.idx === '3', 'fa-tv' : device.idx === '49', 'tv-on' : device.Status === 'On' && device.idx === '49'}" aria-hidden="true"></i>
                                 {{ device.Name }}<br/>
                                 <small>Last updated: {{ device.LastUpdate | moment }}</small>
                             </li>
