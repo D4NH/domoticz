@@ -8,7 +8,9 @@
         </div>
 
         <div class="content">
-            <router-view><span><i class="fa fa-refresh fa-spin fa-fw"></i> Loading...</span></router-view>
+            <transition name="fade" mode="out-in">
+                <router-view></router-view>
+            </transition>
 
             <div class="bottom-nav">
                 <ul>
@@ -66,6 +68,14 @@ export default {
 </script>
 
 <style lang="scss">
+    .fade-enter-active,
+    .fade-leave-active {
+      transition: opacity .3s ease;
+    }
+    .fade-enter, .fade-leave-to {
+      opacity: 0;
+    }
+
     @import '~mini.css';
     @import '../styles/reset.scss';
     @import '../styles/variables.scss';

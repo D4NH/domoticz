@@ -13,7 +13,7 @@ import Log from '../components/Log';
 
 const routes = [
   { path: '/dashboard', component: Dashboard },
-  { path: '/', component: Lights },
+  { path: '/lights', component: Lights },
   { path: '/home', component: House },
   { path: '/devices', component: Devices },
   { path: '/weather', component: Weather },
@@ -23,5 +23,6 @@ const routes = [
 
 export default new Router({
     mode: 'history',
+    base:  '/domoticz/',
     routes
 });
