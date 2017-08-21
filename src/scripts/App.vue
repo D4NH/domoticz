@@ -87,6 +87,7 @@ export default {
         background-color: white;
         padding: 15px;
         border-bottom: 1px solid #F2F5F7;
+        justify-content: center;
         &:last-of-type { border-bottom: none }
 
         i {

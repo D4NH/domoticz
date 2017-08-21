@@ -2,55 +2,39 @@
     <div class="dashboard container">
         <div class="row">
             <div class="col-sm-4 lights">
-                <div v-if="devices">
-                    <div class="card-container" :class="{'loading' : devices.length === 0}">
-                        <p class="text-center" v-if="devices.length === 0"><i class="fa fa-refresh fa-spin fa-fw"></i> Loading...</p>
-                            <ul>
-                                <li class="switches--cursor" v-for="device in devices" v-if="device.TypeImg === 'lightbulb' && device.Image === 'Light' && device.idx !== '3' && device.idx !== '48'" @click="toggleSwitch(device.idx)">
-                                    <i class="fa fa-fw fa-lightbulb-o fa-2x" :class="{'light-on' : device.Status === 'On'}" aria-hidden="true"></i>
-                                    {{ device.Name }}<br/>
-                                    <small>Last updated: {{ device.LastUpdate | moment }}</small>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                <div v-else>
-                    <p>error: {{ errorMsg }}</p>
+                <div class="card-container" :class="{'loading' : devices.length === 0}">
+                    <p class="text-center" v-if="devices.length === 0"><i class="fa fa-refresh fa-spin fa-fw"></i> Loading...</p>
+                    <ul>
+                        <li class="switches--cursor" v-for="device in devices" v-if="device.TypeImg === 'lightbulb' && device.Image === 'Light' && device.idx !== '3' && device.idx !== '48'" @click="toggleSwitch(device.idx)">
+                            <i class="fa fa-fw fa-lightbulb-o fa-2x" :class="{'light-on' : device.Status === 'On'}" aria-hidden="true"></i>
+                            {{ device.Name }}<br/>
+                            <small>Last updated: {{ device.LastUpdate | moment }}</small>
+                        </li>
+                    </ul>
                 </div>
                 <div class="card-container" :class="{'loading' : devices.length === 0}">
                     <p class="text-center" v-if="devices.length === 0"><i class="fa fa-refresh fa-spin fa-fw"></i> Loading...</p>
-                    <div v-if="devices">
-                        <ul>
-                            <li class="switches--cursor" v-for="device in devices" v-if="device.Image === 'Phone'">
-                                <p class="text-center" v-if="devices.length === 0"><i class="fa fa-refresh fa-spin fa-fw"></i> Loading...</p>
-                                <i class="fa fa-fw fa-mobile fa-2x" :class="{'mobile-on' : device.Status === 'On'}" aria-hidden="true"></i>
-                                {{ device.Name }}<br/>
-                                <small>Last updated: {{ device.LastUpdate | moment }}</small>
-                            </li>
-                        </ul>
-                    </div>
-                    <div v-else>
-                        <p>error: {{ errorMsg }}</p>
-                    </div>
+                    <ul>
+                        <li v-for="device in devices" v-if="device.Image === 'Phone'">
+                            <i class="fa fa-fw fa-mobile fa-2x" :class="{'mobile-on' : device.Status === 'On'}" aria-hidden="true"></i>
+                            {{ device.Name }}<br/>
+                            <small>Last updated: {{ device.LastUpdate | moment }}</small>
+                        </li>
+                    </ul>
                 </div>
-                <div class="card-container-b" :class="{'loading' : devices.length === 0}">
+                <div class="tv-container" :class="{'loading' : devices.length === 0}">
                     <p class="text-center" v-if="devices.length === 0"><i class="fa fa-refresh fa-spin fa-fw"></i> Loading...</p>
-                    <div v-if="devices">
-                        <ul>
-                            <li class="switches--cursor" v-for="device in devices" v-if="device.idx === '49' || device.idx === '3'" @click="toggleSwitch(device.idx)">
-                                <i class="fa fa-fw fa-2x" :class="{'light-on' : device.Status === 'On' && device.idx === '3', 'fa-lightbulb-o' : device.idx === '3', 'fa-tv' : device.idx === '49', 'tv-on' : device.Status === 'On' && device.idx === '49'}" aria-hidden="true"></i>
-                                {{ device.Name }}<br/>
-                                <small>Last updated: {{ device.LastUpdate | moment }}</small>
-                            </li>
-                        </ul>
-                    </div>
-                    <div v-else>
-                        <p>error: {{ errorMsg }}</p>
-                    </div>
+                    <ul>
+                        <li class="switches--cursor" v-for="device in devices" v-if="device.idx === '49' || device.idx === '3'" @click="toggleSwitch(device.idx)">
+                            <i class="fa fa-fw fa-2x" :class="{'light-on' : device.Status === 'On' && device.idx === '3', 'fa-lightbulb-o' : device.idx === '3', 'fa-tv' : device.idx === '49', 'tv-on' : device.Status === 'On' && device.idx === '49'}" aria-hidden="true"></i>
+                            {{ device.Name }}<br/>
+                            <small>Last updated: {{ device.LastUpdate | moment }}</small>
+                        </li>
+                    </ul>
                 </div>
             </div>
             <div class="col-sm-3 weather-report">
-                <div class="card-container loading">
+                <div class="card-container">
                     <p class="text-center" v-if="weatherToday.length === 0"><i class="fa fa-refresh fa-spin fa-fw"></i> Loading...</p>
                     <div class="weather-today" v-for="today in weatherToday">
                         <p>
@@ -175,12 +159,12 @@ export default {
 </script>
 
 <style lang="scss">
-    .loading {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-    }
-    .card-container-b {
+    // .loading {
+    //     display: flex;
+    //     align-items: center;
+    //     justify-content: center;
+    // }
+    .tv-container {
         background-color: white;
         padding: 15px;
         border-bottom: 1px solid #F2F5F7;
@@ -190,6 +174,12 @@ export default {
             float: left;
             margin-right: 15px;
             margin-top: 5px;
+        }
+
+        p {
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
     }
     .row {
@@ -238,6 +228,9 @@ export default {
         p {
             margin: 0;
         }
+        .card-container {
+            justify-content: center;
+        }
         .weather {
             &-condition,
             &-minmaxtemp {
@@ -266,7 +259,7 @@ export default {
         .card-container {
             display: flex;
             align-items: center;
-            flex: 1;
+            flex-grow: 1;
         }
     }
 </style>

@@ -1,7 +1,7 @@
 <template>
     <div class="card-container">
         <p class="text-center" v-if="logData.length === 0"><i class="fa fa-refresh fa-spin fa-fw"></i> Loading...</p>
-        <p v-for="log in logData">
+        <p class="log" v-for="log in logData">
             {{ log.level }}
             {{ log.message }}
         </p>
@@ -45,4 +45,7 @@ export default {
 </script>
 
 <style lang="scss">
+    .log {
+        font-size: 12px;
+    }
 </style>
