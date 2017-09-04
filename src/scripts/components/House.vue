@@ -13,7 +13,7 @@
             <li class="card-container">
                 <i class="fa fa-fw fa-video-camera fa-2x" aria-hidden="true"></i>
                 Camera<br/>
-                <small>HIKVision</small>
+                <small>HIKVision DS-2CD3345-I</small>
                 <br/><br/>
                 <ip-cam>Loading...</ip-cam>
             </li>

@@ -5,7 +5,7 @@
                 <div class="card-container" :class="{'loading' : devices.length === 0}">
                     <p class="text-center" v-if="devices.length === 0"><i class="fa fa-refresh fa-spin fa-fw"></i> Loading...</p>
                     <ul>
-                        <li class="switches--cursor" v-for="device in devices" v-if="device.TypeImg === 'lightbulb' && device.Image === 'Light' && device.idx !== '3' && device.idx !== '48'" @click="toggleSwitch(device.idx)">
+                        <li class="switches--cursor" v-for="device in devices" v-if="device.TypeImg === 'lightbulb' && device.Image === 'Light' && device.idx !== '3' && device.idx !== '48' && device.idx !== '47'" @click="toggleSwitch(device.idx)">
                             <i class="fa fa-fw fa-lightbulb-o fa-2x" :class="{'light-on' : device.Status === 'On'}" aria-hidden="true"></i>
                             {{ device.Name }}<br/>
                             <small>Last updated: {{ device.LastUpdate | moment }}</small>
@@ -215,11 +215,10 @@ export default {
             align-items: center;
             justify-content: center;
 
-            height: 299px;
+            height: 200px;
             margin: 0 auto;
             img {
                 position: absolute;
-                bottom: -110px;
             }
         }
     }
