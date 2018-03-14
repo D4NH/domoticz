@@ -1,10 +1,14 @@
 <template>
-    <div class="card-container">
-        <p class="text-center" v-if="logData.length === 0"><i class="fa fa-refresh fa-spin fa-fw"></i> Loading...</p>
-        <p class="log" v-for="log in logData">
-            {{ log.level }}
-            {{ log.message }}
-        </p>
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="card-container">
+                <p class="text-center" v-if="logData.length === 0"><i class="fa fa-refresh fa-spin fa-fw"></i> Loading...</p>
+                <p class="log" v-for="log in logData">
+                    {{ log.level }}
+                    {{ log.message }}
+                </p>
+            </div>
+        </div>
     </div>
 </template>
 
@@ -14,38 +18,40 @@ import { getLogAPI } from '../services/domoticz-api';
 
 export default {
     name: 'log',
-    data () {
+    data() {
         return {
             logData: [],
             errorMsg: '',
             timer: ''
-        }
+        };
     },
-    methods : {
-        getLog () {
-            getLogAPI ().then((response) => {
-                this.logData = response.data.result;
-            }).catch(error => {
-                this.errorMsg = 'Alles is kapot!';
-                this.logData = null;
-            });
+    methods: {
+        getLog() {
+            getLogAPI()
+                .then(response => {
+                    this.logData = response.data.result;
+                })
+                .catch(error => {
+                    this.errorMsg = 'Alles is kapot!';
+                    this.logData = null;
+                });
         },
-        cancelAutoUpdate () {
+        cancelAutoUpdate() {
             clearInterval(this.timer);
         }
     },
-    mounted () {
+    mounted() {
         this.getLog();
         this.timer = setInterval(this.getLog, 2000);
     },
-    beforeDestroy () {
+    beforeDestroy() {
         this.cancelAutoUpdate();
     }
-}
+};
 </script>
 
 <style lang="scss">
-    .log {
-        font-size: 12px;
-    }
+.log {
+    font-size: 12px;
+}
 </style>

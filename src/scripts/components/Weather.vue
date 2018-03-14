@@ -1,7 +1,7 @@
 <template>
     <div>
         <div class="row">
-            <div class="col-sm-6 switches weather">
+            <div class="col-sm-12 col-md-6 switches weather">
                 <div class="card-container weather-today" v-for="today in weatherToday">
                     <p class="text-center" v-if="weatherForecast.length === 0"><i class="fa fa-refresh fa-spin fa-fw"></i> Loading...</p>
                     <p>
@@ -16,11 +16,11 @@
                     </p>
                 </div>
             </div>
-            <div class="col-sm-6 switches">
+            <div class="col-sm-12 col-md-6 switches">
                 <img class="buienradar" border="0" src="//api.buienradar.nl/image/1.0/RadarMapNL">
             </div>
         </div>
-        <div class="switches">
+        <div class="col-sm-12 switches">
             <ul class="card-container weather-forecast">
                 <li class="weather-forecast-day" v-for="(forecast, index) in weatherForecast" v-if="index !== 0">
                     {{ forecast.date | moment }}<br/>
@@ -41,18 +41,18 @@ import { getWeatherTodayAPI, getWeatherForecastAPI } from '../services/domoticz-
 
 export default {
     name: 'weather',
-    data () {
+    data() {
         return {
             weatherToday: [],
             weatherForecast: [],
             errorMsg: ''
-        }
+        };
     },
     filters: {
-        roundUp (value) {
+        roundUp(value) {
             return Math.ceil(value);
         },
-        moment (date) {
+        moment(date) {
             return moment(date).calendar(null, {
                 sameDay: '[Today]',
                 nextDay: 'dddd',
@@ -72,72 +72,76 @@ export default {
         //         this.weatherData = [];
         //     });
         // },
-        getWeatherToday () {
-            getWeatherTodayAPI().then((response) => {
-                this.weatherToday = response.data.forecast.forecastday;
-            }).catch(error => {
-                this.errorMsg = 'Alles is kapot!';
-                this.weatherToday = null;
-            });
+        getWeatherToday() {
+            getWeatherTodayAPI()
+                .then(response => {
+                    this.weatherToday = response.data.forecast.forecastday;
+                })
+                .catch(error => {
+                    this.errorMsg = 'Alles is kapot!';
+                    this.weatherToday = null;
+                });
         },
-        getWeatherForecast () {
-            getWeatherForecastAPI().then((response) => {
-                this.weatherForecast = response.data.forecast.forecastday;
-            }).catch(error => {
-                this.errorMsg = 'Alles is kapot!';
-                this.weatherForecast = null;
-            });
+        getWeatherForecast() {
+            getWeatherForecastAPI()
+                .then(response => {
+                    this.weatherForecast = response.data.forecast.forecastday;
+                })
+                .catch(error => {
+                    this.errorMsg = 'Alles is kapot!';
+                    this.weatherForecast = null;
+                });
         }
     },
-    mounted () {
+    mounted() {
         this.getWeatherToday();
         this.getWeatherForecast();
     }
-}
+};
 </script>
 
 <style lang="scss">
-    .weather {
+.weather {
+    text-align: center;
+
+    p {
+        margin-top: 0;
+        margin-bottom: 0;
+    }
+
+    &-today {
+        height: 100%;
+        display: flex;
+        flex: 1;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+    }
+
+    &-temp {
+        font-size: 20px;
+    }
+    &-minmaxtemp,
+    &-condition {
+        font-size: 12px;
+    }
+
+    &-forecast {
+        display: flex;
+        justify-content: space-between;
         text-align: center;
-
-        p {
-            margin-top: 0;
-            margin-bottom: 0;
-        }
-
-        &-today {
-            height: 100%;
-            display: flex;
-            flex: 1;
-            align-items: center;
-            justify-content: center;
-            flex-direction: column;
-        }
-
-        &-temp {
-            font-size: 20px;
-        }
-        &-minmaxtemp,
-        &-condition {
-            font-size: 12px;
-        }
-
-        &-forecast {
-            display: flex;
-            justify-content: space-between;
-            text-align: center;
-            &-day {
-                font-size: 10px;
-                display: inline-block;
-                img {
-                    width: 40px;
-                }
+        &-day {
+            font-size: 10px;
+            display: inline-block;
+            img {
+                width: 40px;
             }
         }
     }
-    .buienradar {
-        width: 100%;
-        height: 100%;
-        flex: 1;
-    }
+}
+.buienradar {
+    width: 100%;
+    height: 100%;
+    flex: 1;
+}
 </style>

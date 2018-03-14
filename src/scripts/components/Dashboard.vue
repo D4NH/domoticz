@@ -5,28 +5,28 @@
                 <div class="card-container" :class="{'loading' : devices.length === 0}">
                     <p class="text-center" v-if="devices.length === 0"><i class="fa fa-refresh fa-spin fa-fw"></i> Loading...</p>
                     <ul>
-                        <li class="switches--cursor" v-for="device in devices" v-if="device.TypeImg === 'lightbulb' && device.Image === 'Light' && device.idx !== '53' && device.idx !== '2'" @click="toggleSwitch(device.idx)">
+                        <li class="switches--cursor" v-for="device in devices" v-if="device.idx === '56' || device.idx === '57'" @click="toggleSwitch(device.idx)">
                             <i class="fa fa-fw fa-lightbulb-o fa-2x" :class="{'light-on' : device.Status === 'On'}" aria-hidden="true"></i>
                             {{ device.Name }}<br/>
                             <small>Last updated: {{ device.LastUpdate | moment }}</small>
                         </li>
                     </ul>
                 </div>
-                <!-- <div class="card-container" :class="{'loading' : devices.length === 0}">
-                    <p class="text-center" v-if="devices.length === 0"><i class="fa fa-refresh fa-spin fa-fw"></i> Loading...</p>
-                    <ul>
-                        <li v-for="device in devices" v-if="device.Image === 'Phone'">
-                            <i class="fa fa-fw fa-mobile fa-2x" :class="{'mobile-on' : device.Status === 'On'}" aria-hidden="true"></i>
-                            {{ device.Name }}<br/>
-                            <small>Last updated: {{ device.LastUpdate | moment }}</small>
-                        </li>
-                    </ul>
-                </div> -->
-                <div class="tv-container" :class="{'loading' : devices.length === 0}">
+                <div class="card-container" :class="{'loading' : devices.length === 0}">
                     <p class="text-center" v-if="devices.length === 0"><i class="fa fa-refresh fa-spin fa-fw"></i> Loading...</p>
                     <ul>
                         <li class="switches--cursor" v-for="device in devices" v-if="device.idx === '49' || device.idx === '3'" @click="toggleSwitch(device.idx)">
                             <i class="fa fa-fw fa-2x" :class="{'light-on' : device.Status === 'On' && device.idx === '3', 'fa-lightbulb-o' : device.idx === '3', 'fa-tv' : device.idx === '49', 'tv-on' : device.Status === 'On' && device.idx === '49'}" aria-hidden="true"></i>
+                            {{ device.Name }}<br/>
+                            <small>Last updated: {{ device.LastUpdate | moment }}</small>
+                        </li>
+                    </ul>
+                </div>
+                 <div class="card-container" :class="{'loading' : devices.length === 0}">
+                    <p class="text-center" v-if="devices.length === 0"><i class="fa fa-refresh fa-spin fa-fw"></i> Loading...</p>
+                    <ul>
+                        <li class="switches--cursor" v-for="device in devices" v-if="device.idx === '2' || device.idx === '50' || device.idx === '1'" @click="toggleSwitch(device.idx)">
+                            <i class="fa fa-fw fa-lightbulb-o fa-2x" :class="{'light-on' : device.Status === 'On'}" aria-hidden="true"></i>
                             {{ device.Name }}<br/>
                             <small>Last updated: {{ device.LastUpdate | moment }}</small>
                         </li>
@@ -57,6 +57,16 @@
                     <ul>
                         <li v-for="device in devices" v-if="device.idx === '39' || device.idx === '31' || device.idx === '46'">
                             <i class="fa fa-fw fa-home fa-2x" :class="{'home-on' : device.Status === 'Open'}" aria-hidden="true"></i>
+                            {{ device.Name }}<br/>
+                            <small>Last updated: {{ device.LastUpdate | moment }}</small>
+                        </li>
+                    </ul>
+                </div>
+                <div class="card-container" :class="{'loading' : devices.length === 0}">
+                    <p class="text-center" v-if="devices.length === 0"><i class="fa fa-refresh fa-spin fa-fw"></i> Loading...</p>
+                    <ul>
+                        <li v-for="device in devices" v-if="device.Image === 'Phone'">
+                            <i class="fa fa-fw fa-mobile fa-2x" :class="{'mobile-on' : device.Status === 'On'}" aria-hidden="true"></i>
                             {{ device.Name }}<br/>
                             <small>Last updated: {{ device.LastUpdate | moment }}</small>
                         </li>
@@ -93,22 +103,22 @@ import { getDevicesAPI, getToggleAPI, getWeatherTodayAPI, getWeatherForecastAPI 
 
 export default {
     name: 'dashboard',
-    data () {
+    data() {
         return {
             popup: false,
             devices: [],
             weatherToday: [],
             errorMsg: ''
-        }
+        };
     },
     filters: {
-        roundUp (value) {
+        roundUp(value) {
             return Math.ceil(value);
         },
-        moment (date) {
+        moment(date) {
             return moment(date).fromNow();
         },
-        momentCal (date) {
+        momentCal(date) {
             return moment(date).calendar(null, {
                 sameDay: '[Today]',
                 nextDay: 'dddd',
@@ -119,146 +129,155 @@ export default {
             });
         }
     },
-    methods : {
-        togglePopup () {
+    methods: {
+        togglePopup() {
             this.popup = !this.popup;
         },
-        moment () {
+        moment() {
             return moment();
         },
-        getDevices () {
-            getDevicesAPI ().then((response) => {
-                this.devices = response.data.result;
-            }).catch(error => {
-                this.errorMsg = 'Alles is kapot!';
-                this.devices = null;
-            });
+        getDevices() {
+            getDevicesAPI()
+                .then(response => {
+                    this.devices = response.data.result;
+                })
+                .catch(error => {
+                    this.errorMsg = 'Alles is kapot!';
+                    this.devices = null;
+                });
         },
-        toggleSwitch (deviceId) {
-            getToggleAPI (deviceId).then((response) => {
-                this.getDevices();
-            }).catch(error => {
-                this.errorMsg = 'Alles is kapot!';
-                this.devices = null;
-            });
+        toggleSwitch(deviceId) {
+            getToggleAPI(deviceId)
+                .then(response => {
+                    this.getDevices();
+                })
+                .catch(error => {
+                    this.errorMsg = 'Alles is kapot!';
+                    this.devices = null;
+                });
         },
-        getWeatherToday () {
-            getWeatherTodayAPI().then((response) => {
-                this.weatherToday = response.data.forecast.forecastday;
-            }).catch(error => {
-                this.errorMsg = 'Alles is kapot!';
-                this.weatherToday = null;
-            });
+        getWeatherToday() {
+            getWeatherTodayAPI()
+                .then(response => {
+                    this.weatherToday = response.data.forecast.forecastday;
+                })
+                .catch(error => {
+                    this.errorMsg = 'Alles is kapot!';
+                    this.weatherToday = null;
+                });
         }
     },
-    mounted () {
+    mounted() {
         this.getDevices();
         this.getWeatherToday();
     }
-}
+};
 </script>
 
 <style lang="scss">
-    // .loading {
-    //     display: flex;
-    //     align-items: center;
-    //     justify-content: center;
-    // }
-    .tv-container {
-        background-color: white;
-        padding: 15px;
-        border-bottom: 1px solid #F2F5F7;
-        &:last-of-type { border-bottom: none }
+// .loading {
+//     display: flex;
+//     align-items: center;
+//     justify-content: center;
+// }
+.tv-container {
+    background-color: white;
+    padding: 15px;
+    border-bottom: 1px solid #f2f5f7;
+    &:last-of-type {
+        border-bottom: none;
+    }
 
-        i {
-            float: left;
-            margin-right: 15px;
-            margin-top: 5px;
-        }
+    i {
+        float: left;
+        margin-right: 15px;
+        margin-top: 5px;
+    }
 
-        p {
-            display: flex;
-            align-items: center;
-            justify-content: center;
+    p {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+}
+.row {
+    margin-bottom: 8px;
+}
+.popup {
+    position: absolute;
+    margin-left: auto;
+    margin-right: auto;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    .box {
+        width: auto;
+        height: auto;
+        img {
+            position: relative;
+            top: 0;
         }
     }
-    .row {
+}
+.lights {
+    margin-left: 45px;
+}
+.house {
+    overflow: hidden;
+    .cam-container {
+        background-color: white;
+    }
+    .box {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        // height: 299px;
+        margin: 0 auto;
+        // img {
+        //     position: absolute;
+        //     bottom: -110px;
+        // }
+    }
+}
+.weather-report {
+    text-align: center;
+    p {
+        margin: 0;
+    }
+    .card-container {
+        justify-content: center;
+    }
+    .weather {
+        &-condition,
+        &-minmaxtemp {
+            font-size: 10px;
+        }
+    }
+    .buienradar {
+        margin-top: 8px;
+    }
+}
+.lights,
+.house {
+    .card-container {
         margin-bottom: 8px;
     }
-    .popup {
-        position: absolute;
-        margin-left: auto;
-        margin-right: auto;
-        left: 0;
-        right: 0;
-        top: 0;
-        bottom: 0;
-        .box {
-            width: auto;
-            height: auto;
-            img {
-                position: relative;
-                top: 0;
-            }
-        }
+    li {
+        padding: 9.7px;
     }
-    .lights {
-        margin-left: 45px;
-    }
-    .house {
-        overflow: hidden;
-        .cam-container {
-            background-color: white;
-        }
-        .box {
-            display: flex;
-            align-items: center;
-            justify-content: center;
+}
+.lights,
+.house,
+.weather-report {
+    display: flex;
+    flex-direction: column;
 
-            height: 200px;
-            margin: 0 auto;
-            img {
-                position: absolute;
-            }
-        }
-    }
-    .weather-report {
-        text-align: center;
-        p {
-            margin: 0;
-        }
-        .card-container {
-            justify-content: center;
-        }
-        .weather {
-            &-condition,
-            &-minmaxtemp {
-                font-size: 10px;
-            }
-        }
-        .buienradar {
-            margin-top: 8px;
-        }
-    }
-    .lights,
-    .house {
-        .card-container {
-            margin-bottom: 8px;
-        }
-        li {
-            padding: 9.7px;
-        }
-    }
-    .lights,
-    .house,
-    .weather-report {
+    .card-container {
         display: flex;
-        flex-direction: column;
-
-        .card-container {
-            display: flex;
-            align-items: center;
-            flex-grow: 1;
-        }
+        align-items: center;
+        flex-grow: 1;
     }
+}
 </style>
