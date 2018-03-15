@@ -5,7 +5,7 @@
                 <ul class="switches">
                     <li class="card-container switches--cursor" v-for="device in devices" v-if="device.idx === '56' || device.idx === '57'" @click="customLight(device); showModal = true">
                         <p class="text-center" v-if="devices.length === 0"><i class="fa fa-refresh fa-spin fa-fw"></i> Loading...</p>
-                        <i class="fa fa-fw fa-lightbulb-o fa-2x" :class="{'light-on' : device.Status === 'On'}" aria-hidden="true"></i>
+                        <i class="fa fa-fw fa-lightbulb-o fa-2x" :class="{'light-on' : device.Status !== 'Off'}" aria-hidden="true"></i>
                         {{ device.Name }}<br/>
                         <small>Last updated: {{ device.LastUpdate | moment }}</small>
                     </li>
