@@ -62,6 +62,9 @@
                         </li>
                     </ul>
                 </div>
+                <div class="cam-container" :class="{'popup': popup}" @click="togglePopup">
+                    <ip-cam></ip-cam>
+                </div>
                 <div class="card-container" :class="{'loading' : devices.length === 0}">
                     <p class="text-center" v-if="devices.length === 0"><i class="fa fa-refresh fa-spin fa-fw"></i> Loading...</p>
                     <ul>
@@ -71,9 +74,6 @@
                             <small>Last updated: {{ device.LastUpdate | moment }}</small>
                         </li>
                     </ul>
-                </div>
-                <div class="cam-container" :class="{'popup': popup}" @click="togglePopup">
-                    <ip-cam></ip-cam>
                 </div>
             </div>
         </div>
@@ -180,29 +180,6 @@ export default {
 //     align-items: center;
 //     justify-content: center;
 // }
-.tv-container {
-    background-color: white;
-    padding: 15px;
-    border-bottom: 1px solid #f2f5f7;
-    &:last-of-type {
-        border-bottom: none;
-    }
-
-    i {
-        float: left;
-        margin-right: 15px;
-        margin-top: 5px;
-    }
-
-    p {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-    }
-}
-.row {
-    margin-bottom: 8px;
-}
 .popup {
     position: absolute;
     margin-left: auto;
@@ -220,27 +197,25 @@ export default {
         }
     }
 }
+
 .lights {
     margin-left: 45px;
 }
+
 .house {
     overflow: hidden;
     .cam-container {
         background-color: white;
+        margin-bottom: 8px;
     }
     .box {
         display: flex;
         align-items: center;
         justify-content: center;
-
-        // height: 299px;
         margin: 0 auto;
-        // img {
-        //     position: absolute;
-        //     bottom: -110px;
-        // }
     }
 }
+
 .weather-report {
     text-align: center;
     p {
@@ -259,15 +234,7 @@ export default {
         margin-top: 8px;
     }
 }
-.lights,
-.house {
-    .card-container {
-        margin-bottom: 8px;
-    }
-    li {
-        padding: 9.7px;
-    }
-}
+
 .lights,
 .house,
 .weather-report {
@@ -278,6 +245,18 @@ export default {
         display: flex;
         align-items: center;
         flex-grow: 1;
+        margin-bottom: 8px;
+
+        &:last-of-type {
+            margin-bottom: 0;
+        }
+
+        li {
+            padding-bottom: 10px;
+            &:last-of-type {
+                padding-bottom: 0;
+            }
+        }
     }
 }
 </style>
