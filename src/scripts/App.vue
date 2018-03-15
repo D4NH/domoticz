@@ -116,7 +116,7 @@ export default {
     }
 
     .switches {
-        margin-bottom: 15px;
+        margin-bottom: 8px;
         &--cursor {
             cursor: pointer;
         }

@@ -1,7 +1,7 @@
 <template>
     <div>
         <div class="row">
-            <div class="col-sm-12 col-md-6 switches weather">
+            <div class="col-sm-12 col-md-6 weather">
                 <div class="card-container weather-today" v-for="today in weatherToday">
                     <p class="text-center" v-if="weatherForecast.length === 0"><i class="fa fa-refresh fa-spin fa-fw"></i> Loading...</p>
                     <p>
@@ -16,7 +16,7 @@
                     </p>
                 </div>
             </div>
-            <div class="col-sm-12 col-md-6 switches">
+            <div class="col-sm-12 col-md-6">
                 <img class="buienradar" border="0" src="//api.buienradar.nl/image/1.0/RadarMapNL">
             </div>
         </div>
