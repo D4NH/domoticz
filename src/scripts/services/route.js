@@ -12,17 +12,17 @@ import Weather from '../components/Weather';
 import Log from '../components/Log';
 
 const routes = [
-  { path: '/dashboard', component: Dashboard },
-  { path: '/lights', component: Lights },
-  { path: '/home', component: House },
-  { path: '/devices', component: Devices },
-  { path: '/weather', component: Weather },
-  { path: '/log', component: Log },
-  { path: '*', component: Lights }
+    { path: '/dashboard', component: Dashboard },
+    { path: '/lights', component: Lights },
+    { path: '/home', component: House },
+    { path: '/devices', component: Devices },
+    { path: '/weather', component: Weather },
+    { path: '/log', component: Log },
+    { path: '*', component: Lights }
 ];
 
 export default new Router({
     mode: 'history',
-    base:  '/domoticz/',
+    base: '/domoticz/',
     routes
 });

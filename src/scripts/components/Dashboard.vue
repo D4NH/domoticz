@@ -77,23 +77,6 @@
                 </div>
             </div>
         </div>
-        <!-- <div class="row">
-            <div class="col-sm-4 lights">
-                <div class="card-container">
-                    <p>Je weet zelluf</p>
-                </div>
-            </div>
-            <div class="col-sm-4 weather-report">
-                <div class="card-container">
-                    <p>Blaat</p>
-                </div>
-            </div>
-            <div class="col-sm-4 weather-report">
-                <div class="card-container">
-                    <p>Camera</p>
-                </div>
-            </div>
-        </div> -->
     </div>
 </template>
 
@@ -175,11 +158,6 @@ export default {
 </script>
 
 <style lang="scss">
-// .loading {
-//     display: flex;
-//     align-items: center;
-//     justify-content: center;
-// }
 .popup {
     position: absolute;
     margin-left: auto;

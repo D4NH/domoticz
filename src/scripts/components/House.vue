@@ -23,11 +23,6 @@
                 </ul>
             </div>
         </div>
-        <div class="row">
-            <div class="col-sm-12">
-                dsmr reader here
-            </div>
-        </div>
     </div>
     <div v-else>
         <p>error: {{ errorMsg }}</p>
@@ -42,7 +37,6 @@ import IpCam from './IpCam';
 Vue.component('ip-cam', IpCam);
 
 import { getDevicesAPI } from '../services/domoticz-api';
-import { getDSMRAPI } from '../services/dsmr-api';
 
 export default {
     name: 'devices',
@@ -70,21 +64,10 @@ export default {
                     this.errorMsg = 'Alles is kapot!';
                     this.devices = null;
                 });
-        },
-        getDSMRData() {
-            getDSMRAPI()
-                .then(response => {
-                    console.log('response', response);
-                })
-                .catch(error => {
-                    this.errorMsg = 'Alles is kapot!';
-                    this.devices = null;
-                });
         }
     },
     mounted() {
         this.getDevices();
-        // this.getDSMRData();
     }
 };
 </script>

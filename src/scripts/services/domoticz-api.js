@@ -1,6 +1,9 @@
 import axios from 'axios';
 
-const BASE_URL = (window.location.href.indexOf('localhost') > -1 || window.location.href.indexOf('192') > -1) ? 'http://192.168.0.101:8080' : 'https://thuis.danhnguyen.nl';
+const BASE_URL =
+    window.location.href.indexOf('localhost') > -1 || window.location.href.indexOf('192') > -1
+        ? 'http://192.168.0.101:8080'
+        : 'https://thuis.danhnguyen.nl/smarthome';
 
 export {
     getSunriseAPI,

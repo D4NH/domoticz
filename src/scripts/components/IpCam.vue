@@ -8,48 +8,51 @@
 <script>
 export default {
     name: 'ip-cam',
-    data () {
+    data() {
         return {
             loading: true,
             timer: ''
-        }
+        };
     },
-    methods : {
-        getCamStream () {
-            const BASE_URL = (window.location.href.indexOf('localhost') > -1 || window.location.href.indexOf('192') > -1) ? 'http://192.168.0.101:8080' : 'https://thuis.danhnguyen.nl';
+    methods: {
+        getCamStream() {
+            const BASE_URL =
+                window.location.href.indexOf('localhost') > -1 || window.location.href.indexOf('192') > -1
+                    ? 'http://192.168.0.101:8080'
+                    : 'https://thuis.danhnguyen.nl/smarthome';
             document.getElementById('hikvision').src = `${BASE_URL}/camsnapshot.jpg?idx=1&rand=` + Math.random();
             this.loading = false;
         },
-        cancelAutoUpdate () {
+        cancelAutoUpdate() {
             clearInterval(this.timer);
         }
     },
-    activate () {
+    activate() {
         this.getCamStream();
     },
-    mounted () {
+    mounted() {
         this.timer = setInterval(this.getCamStream, 5000);
     },
-    beforeDestroy () {
+    beforeDestroy() {
         this.cancelAutoUpdate();
     }
-}
+};
 </script>
 
 <style lang="scss">
-    .box {
-        position: relative;
-        overflow: hidden;
-        margin-top: -10px;
-        margin-bottom: -5px;
-        .fa-refresh {
-            float: none;
-            margin-right: 0;
-            margin-top: 0;
-        }
+.box {
+    position: relative;
+    overflow: hidden;
+    margin-top: -10px;
+    margin-bottom: -5px;
+    .fa-refresh {
+        float: none;
+        margin-right: 0;
+        margin-top: 0;
     }
+}
 
-    img#hikvision {
-        width: 100%;
-    }
+img#hikvision {
+    width: 100%;
+}
 </style>

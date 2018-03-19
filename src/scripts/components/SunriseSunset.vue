@@ -7,27 +7,30 @@ import { getSunriseAPI } from '../services/domoticz-api';
 
 export default {
     name: 'sunrise-sunset',
-    data () {
+    data() {
         return {
             sunData: [],
             errorMsg: ''
-        }
+        };
     },
     methods: {
-        getSundata () {
-            getSunriseAPI().then((response) => {
-                this.sunData = response.data;
-            }).catch(error => {
-                this.errorMsg = 'Alles is kapot!';
-                this.sunData = null;
-            });
+        getSundata() {
+            getSunriseAPI()
+                .then(response => {
+                    this.sunData = response.data;
+                })
+                .catch(error => {
+                    this.errorMsg = 'Alles is kapot!';
+                    this.sunData = null;
+                });
         }
     },
-    mounted () {
+    mounted() {
         this.getSundata();
     }
-}
+};
 </script>
 
 <style lang="scss">
+
 </style>
